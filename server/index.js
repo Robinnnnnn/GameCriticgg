@@ -1,29 +1,75 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-// UNCOMMENT THE DATABASE YOU'D LIKE TO USE
-// var items = require('../database-mysql');
-// var items = require('../database-mongo');
+const express = require('express');
+const bodyParser = require('body-parser');
+const faker = require('faker');
+const axios = require('axios');
+const uniqid = require('uniqid');
 
-var app = express();
+const { Game } = require('../database-mongo');
 
-// UNCOMMENT FOR REACT
-// app.use(express.static(__dirname + '/../react-client/dist'));
+const app = express();
 
-// UNCOMMENT FOR ANGULAR
-// app.use(express.static(__dirname + '/../angular-client'));
-// app.use(express.static(__dirname + '/../node_modules'));
+app.use(express.static(__dirname + '/../react-client/dist'));
 
-app.get('/items', function (req, res) {
-  items.selectAll(function(err, data) {
-    if(err) {
-      res.sendStatus(500);
-    } else {
-      res.json(data);
-    }
-  });
-});
+app.get('/gamesList', async (req, res) => {
+ await Game.find({})
+  .then(allGames => res.send(allGames))
+})
+
+
 
 app.listen(3000, function() {
   console.log('listening on port 3000!');
 });
+
+/* -------------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------------- */
+
+//***USED TO LOAD GAME DATA INTO DB***
+// app.get('/games', function (req, res) {
+//   let games;
+//   axios.get('https://api.rawg.io/api/games', {
+//     params: {
+//       dates: '2017-01-01,2020-05-31',
+//       page_size:100,
+//     }
+//   })
+//     .then(results => {
+//       let listOfGames = results.data.results;
+//       console.log("List of Games: ", listOfGames.length)
+
+//       listOfGames.forEach( async (game) => {
+//         const genresArr = game.genres.map(genre => genre.name);
+//         const platformsArr = game.platforms.map(aPlatform => aPlatform.platform.name);
+
+//         //creates and adds a game to the db
+//         await Game.create({
+//           title: game.name,
+//           platforms: platformsArr,
+//           releaseData: game.released,
+//           image: game.background_image,
+//           metacritic: game.metacritic,
+//           genres: genresArr,
+//           gcRating_overall: 1,
+//           gcRating_gameplay: 1,
+//           gcRating_art: 1,
+//           gcRating_sound: 1,
+//           reviews: {
+//             author:'Robin Lifshitz',
+//             user_overall: 5,
+//             user_gameplay: 5,
+//             user_art: 5,
+//             user_sound: 5,
+//             upvotes: 0,
+//             downvotes: 0,
+//             review:'Tis good.'
+//           }
+
+//         });
+
+//       })//end of looping through the games returned from RAWG
+//     })
+//     .catch((err) => res.send(err))
+//     .then(() => res.send('All Games Added to DB'))
+
+// });
 

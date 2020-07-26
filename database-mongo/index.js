@@ -1,7 +1,12 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+var mongoose  = require('mongoose');
 
-var db = mongoose.connection;
+mongoose.connect('mongodb+srv://robinlifshitz:robinlifshitz@rl-demos.ogefe.mongodb.net/GameCritique',
+  {useNewUrlParser: true,
+   useUnifiedTopology: true,
+   useCreateIndex: true,
+  });
+
+const db = mongoose.connection;
 
 db.on('error', function() {
   console.log('mongoose connection error');
@@ -11,21 +16,36 @@ db.once('open', function() {
   console.log('mongoose connected successfully');
 });
 
-var itemSchema = mongoose.Schema({
-  quantity: Number,
-  description: String
+// is part of the game schema
+const reviewSchema = new mongoose.Schema({
+  author: 'String',
+  user_overall: { type: Number, min: 1, max: 5 },
+  user_gameplay: { type: Number, min: 1, max: 5 },
+  user_art: { type: Number, min: 1, max: 5 },
+  user_sound: { type: Number, min: 1, max: 5 },
+  upvotes: 'Number',
+  downvotes: 'Number',
+  post_date: { type: Date, default: Date.now },
+
+  review: 'String',
+})
+
+const gameSchema = new mongoose.Schema({
+  title: 'String',
+  platforms: [String],
+  releaseDate: 'String',
+  image: 'String',
+  metacritic: 'Number',
+  genres: [String],
+  gcrating_overall: { type: Number, min: 1, max: 5 },
+  gcrating_gameplay: { type: Number, min: 1, max: 5 },
+  gcrating_art: { type: Number, min: 1, max: 5 },
+  gcrating_sound: { type: Number, min: 1, max: 5 },
+  reviews: [reviewSchema],
+
 });
 
-var Item = mongoose.model('Item', itemSchema);
+var Game = mongoose.model('Game', gameSchema);
 
-var selectAll = function(callback) {
-  Item.find({}, function(err, items) {
-    if(err) {
-      callback(err, null);
-    } else {
-      callback(null, items);
-    }
-  });
-};
 
-module.exports.selectAll = selectAll;
+module.exports = { Game };

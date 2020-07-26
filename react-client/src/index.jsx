@@ -1,34 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import List from './components/List.jsx';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       items: []
     }
   }
 
-  componentDidMount() {
-    $.ajax({
-      url: '/items', 
-      success: (data) => {
-        this.setState({
-          items: data
-        })
-      },
-      error: (err) => {
-        console.log('err', err);
-      }
-    });
+  componentDidMount(){
+    //query the DB and return all 40 games
+    axios.get('/gamesList')
+      .then(games => {
+        const gamelist = game.data;
+        this.setState(gameList: gameList);
+      })
   }
 
+
   render () {
-    return (<div>
+    return (
+    <div>
+      <div></div>
       <h1>Item List</h1>
-      <List items={this.state.items}/>
+
     </div>)
   }
 }
