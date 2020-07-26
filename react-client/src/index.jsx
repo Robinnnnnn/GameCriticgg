@@ -7,16 +7,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: []
     }
   }
 
   componentDidMount(){
     //query the DB and return all 40 games
-    axios.get('/gamesList')
+    axios.get('/gameslist')
       .then(games => {
-        const gamelist = game.data;
-        this.setState(gameList: gameList);
+        this.setState({gameList: games.data});
       })
   }
 

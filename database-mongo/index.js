@@ -1,20 +1,24 @@
 var mongoose  = require('mongoose');
+const uri = 'mongodb+srv://robinlifshitz:robinlifshitz@rl-demos.ogefe.mongodb.net/GameCritique?retryWrites=true&w=majority';
 
-mongoose.connect('mongodb+srv://robinlifshitz:robinlifshitz@rl-demos.ogefe.mongodb.net/GameCritique',
-  {useNewUrlParser: true,
-   useUnifiedTopology: true,
-   useCreateIndex: true,
-  });
+
+mongoose.connect( uri , { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB Atlas: GameCritique')
+  })
+  .catch(err => console.log(err))
+
+
 
 const db = mongoose.connection;
 
-db.on('error', function() {
-  console.log('mongoose connection error');
-});
+// db.on('error', function() {
+//   console.log('mongoose connection error');
+// });
 
-db.once('open', function() {
-  console.log('mongoose connected successfully');
-});
+// db.once('open', function() {
+//   console.log('mongoose connected successfully');
+// });
 
 // is part of the game schema
 const reviewSchema = new mongoose.Schema({

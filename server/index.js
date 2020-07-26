@@ -10,8 +10,8 @@ const app = express();
 
 app.use(express.static(__dirname + '/../react-client/dist'));
 
-app.get('/gamesList', async (req, res) => {
- await Game.find({})
+app.get('/gameslist', (req, res) => {
+ Game.find({})
   .then(allGames => res.send(allGames))
 })
 
