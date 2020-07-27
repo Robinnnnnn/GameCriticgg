@@ -10,15 +10,8 @@ mongoose.connect( uri , { useNewUrlParser: true, useUnifiedTopology: true })
 
 
 
-const db = mongoose.connection;
+//const db = mongoose.connection;
 
-// db.on('error', function() {
-//   console.log('mongoose connection error');
-// });
-
-// db.once('open', function() {
-//   console.log('mongoose connected successfully');
-// });
 
 // is part of the game schema
 const reviewSchema = new mongoose.Schema({
@@ -27,8 +20,8 @@ const reviewSchema = new mongoose.Schema({
   user_gameplay: { type: Number, min: 1, max: 5 },
   user_art: { type: Number, min: 1, max: 5 },
   user_sound: { type: Number, min: 1, max: 5 },
-  upvotes: 'Number',
-  downvotes: 'Number',
+  upvotes: { type: 'Number', default: 0},
+  downvotes: { type: 'Number', default: 0},
   post_date: { type: Date, default: Date.now },
 
   review: 'String',

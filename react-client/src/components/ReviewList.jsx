@@ -5,9 +5,11 @@ import styled from 'styled-components';
 const ReviewListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
   margin-top: 15px;
   margin-left: 15px;
+  overflow: scroll;
+  height: 88%;
 `;
 
 class ReviewList extends React.Component {
@@ -18,7 +20,7 @@ class ReviewList extends React.Component {
 
   render(){
     return(
-      <ReviewListContainer>
+      <ReviewListContainer id="review-container">
         {this.props.oneGame.reviews.map((review, index) => {
           return <Review oneReview={review} key={index} gameTitle={this.props.oneGame.title}/>
         })}

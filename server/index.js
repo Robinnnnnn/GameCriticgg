@@ -9,10 +9,26 @@ const { Game } = require('../database-mongo');
 const app = express();
 
 app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(bodyParser.json());
 
 app.get('/gameslist', (req, res) => {
  Game.find({})
   .then(allGames => res.send(allGames))
+})
+
+app.post('/newreview/:gameid', async (req, res) => {
+
+  // console.log("request data", req.body);
+  console.log("gameid: ", req.params.gameid);
+  let gameObjId = req.params.gameid;
+  let newReview = req.body;
+
+  const game = await Game.findById(gameObjId);
+  game.reviews.push(newReview);
+  await game.save();
+
+  res.send('Complete')
+
 })
 
 

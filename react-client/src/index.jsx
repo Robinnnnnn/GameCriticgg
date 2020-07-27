@@ -84,7 +84,7 @@ class App extends React.Component {
             <GameList allGames={ gameList } clickToUpdate={this.updateHighlight} />
             <GameHighlight oneGame={currentGame} />
           </MainTop>
-          <ReviewForm changeDisplay={this.changeBottomDisplay} />
+          <ReviewForm changeDisplay={this.changeBottomDisplay} oneGame={currentGame} />
         </Main>
       )
     } else {

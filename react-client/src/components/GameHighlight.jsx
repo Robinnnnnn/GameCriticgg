@@ -37,7 +37,7 @@ function GameHighlight(props){
   oneGame.reviews.forEach(review => total = total + review.user_overall);
   let gcScore = total / oneGame.reviews.length;
   if(gcScore % Math.floor(gcScore) > 0){
-    gcScore = gcScore.toFIxed(2);
+    gcScore = gcScore.toFixed(2);
   }
 
   return(

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const Holder = styled.div`
   display:flex;
@@ -14,6 +15,9 @@ class ReviewForm extends React.Component{
     this.state = {
       username: "",
       text: "Write Review Here",
+      art: null,
+      sound: null,
+      gameplay: null,
     }
 
     this.handleUNChange = this.handleUNChange.bind(this);
@@ -21,6 +25,8 @@ class ReviewForm extends React.Component{
     this.handleSoundChange = this.handleSoundChange.bind(this);
     this.handleGameplayChange = this.handleGameplayChange.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
+    this.getOverall = this.getOverall.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleUNChange(event){
@@ -28,25 +34,55 @@ class ReviewForm extends React.Component{
   }
 
   handleGameplayChange(event){
-    this.setState({ gameplay: event.target.value})
+    this.setState({ gameplay: parseInt(event.target.value)})
   }
 
   handleArtChange(event){
-    this.setState({ art: event.target.value})
+    this.setState({ art: parseInt(event.target.value)})
   }
 
   handleSoundChange(event){
-    this.setState({ sound: event.target.value})
+    this.setState({ sound: parseInt(event.target.value)})
   }
 
   handleTextChange(event){
     this.setState({ text: event.target.value})
   }
 
-  handleSubmit(){
+  getOverall(){
+    const { art, sound, gameplay } = this.state;
+    let avg = (art + sound + gameplay ) / 3;
+    return avg.toFixed(1);
+  }
+
+  handleSubmit(event){
     // send as post request to the db and then trigger and refresh of review list component
+    event.preventDefault();
     const { changeDisplay } = this.props;
-    changeDisplay();
+    const gameId = this.props.oneGame['_id'];
+    const { username, gameplay, art, sound, text } = this.state;
+
+    const reviewObj = {
+      author: username,
+      user_overall: this.getOverall(),
+      user_gameplay: gameplay,
+      user_art: art,
+      user_sound: sound,
+      review: text,
+    }
+
+    axios({
+      method: 'post',
+      url: `/newreview/${gameId}`,
+      data: reviewObj,
+    })
+      .then((response) => {
+        changeDisplay();
+        console.log(response)
+      })
+
+
+
   }
 
   render(){
