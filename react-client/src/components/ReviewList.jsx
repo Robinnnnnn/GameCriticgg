@@ -22,7 +22,7 @@ class ReviewList extends React.Component {
     return(
       <ReviewListContainer id="review-container">
         {this.props.oneGame.reviews.map((review, index) => {
-          return <Review oneReview={review} key={index} gameTitle={this.props.oneGame.title}/>
+          return <Review oneReview={review} key={index} gameid={this.props.oneGame['_id']}/>
         })}
       </ReviewListContainer>
     )

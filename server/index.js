@@ -4,7 +4,7 @@ const faker = require('faker');
 const axios = require('axios');
 const uniqid = require('uniqid');
 
-const { Game } = require('../database-mongo');
+const { Game, Review } = require('../database-mongo');
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.get('/gameslist', (req, res) => {
 app.post('/newreview/:gameid', async (req, res) => {
 
   // console.log("request data", req.body);
-  console.log("gameid: ", req.params.gameid);
+  // console.log("gameid: ", req.params.gameid);
   let gameObjId = req.params.gameid;
   let newReview = req.body;
 
@@ -29,7 +29,43 @@ app.post('/newreview/:gameid', async (req, res) => {
 
   res.send('Complete')
 
-})
+});
+
+app.put('/downvote/:reviewid/:gameid', async (req, res) => {
+  let reviewId = req.params.reviewid;
+  let gameId = req.params.gameid;
+
+  const game = await Game.findOne({'_id': gameId});
+  const reviews = game.reviews;
+  reviews.forEach(review => {
+    if(review['_id'] == reviewId){
+      let reviewToUpdate = review;
+      console.log(reviewToUpdate)
+      reviewToUpdate.downvotes = reviewToUpdate.downvotes + 1;
+    }
+  })
+
+  const complete = await game.save();
+  res.send(complete)
+});
+
+app.put('/upvote/:reviewid/:gameid', async (req, res) => {
+  let reviewId = req.params.reviewid;
+  let gameId = req.params.gameid;
+
+  const game = await Game.findOne({'_id': gameId});
+  const reviews = game.reviews;
+  reviews.forEach(review => {
+    if(review['_id'] == reviewId){
+      let reviewToUpdate = review;
+      console.log(reviewToUpdate)
+      reviewToUpdate.upvotes = reviewToUpdate.upvotes + 1;
+    }
+  })
+
+  const complete = await game.save();
+  res.send(complete)
+});
 
 
 

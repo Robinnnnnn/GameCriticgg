@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const CircleRating = styled.div`
   height: 50px;
@@ -36,9 +37,10 @@ const ReviewMain = styled.div`
 `;
 
 const VoteContainer = styled.div`
-  width: 6%;
+  width: 10%;
   height: 100%
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   line-height: 100%;
 `;
@@ -47,28 +49,94 @@ const H4 = styled.h4`
   margin: 0 0 0 0;
 `;
 
-function Review(props){
-  const { oneReview, gameTitle } = props;
-  return(
-    // flex - column - alignright
-    <ReviewMain className="game-review">
-      <TextContainer>
-        <H4>{ oneReview.author }</H4>
-        <div>{ oneReview.review }</div>
-      </TextContainer>
-      <CircleContainer>
-        <CircleRating>{ oneReview.user_overall }</CircleRating>
-        <CircleRating>{ oneReview.user_gameplay }</CircleRating>
-        <CircleRating>{ oneReview.user_art }</CircleRating>
-        <CircleRating>{ oneReview.user_sound }</CircleRating>
-      </CircleContainer>
-      <VoteContainer>
-        <div className='material-icons'>arrow_upward</div>
-        <div className='material-icons'>arrow_downward</div>
-      </VoteContainer>
-    </ReviewMain>
+const ArrowContainer = styled.div`
+  width:auto;
+  display:flex;
+  align-items:center;
+`;
 
-  )
+
+
+class Review extends React.Component{
+  constructor(props){
+    super(props);
+    this.state ={
+      votePressed: false,
+    }
+
+    this.handleDownvote = this.handleDownvote.bind(this);
+    this.handleUpvote = this.handleUpvote.bind(this);
+  }
+
+  handleUpvote(e) {
+    //increment the upvote counter on the review
+      //axios request to update the record
+    //toggle the state to votePressed
+    const reviewId = this.props.oneReview['_id'];
+    const gameId = this.props.gameid;
+    if(this.state.votePressed){
+      return;
+    } else {
+      axios({
+        method:'put',
+        url: `/upvote/${reviewId}/${gameId}`,
+      })
+      .then(() => {
+        this.setState({ votePressed : !this.state.votePressed})
+      })
+    }
+
+
+
+  }
+
+  handleDownvote(e) {
+    const reviewId = this.props.oneReview['_id'];
+    const gameId = this.props.gameid;
+    const downvoteValue = document.getElementById('downvoteCounter').textContent;
+    if (this.state.votePressed){
+      return;
+    }else{
+      axios({
+        method: 'put',
+        url: `/downvote/${reviewId}/${gameId}`,
+      })
+        .then(() => {
+          this.setState({ votePressed : !this.state.votePressed})
+        })
+    }
+  }
+
+  render(){
+    const { oneReview } = this.props;
+    const { upvotes, downvotes } = this.props.oneReview;
+    return (
+      // flex - column - alignright
+      <ReviewMain className="game-review">
+        <TextContainer>
+          <H4>{ oneReview.author }</H4>
+          <div>{ oneReview.review }</div>
+        </TextContainer>
+        <CircleContainer>
+          <CircleRating>{ oneReview.user_overall }</CircleRating>
+          <CircleRating>{ oneReview.user_gameplay }</CircleRating>
+          <CircleRating>{ oneReview.user_art }</CircleRating>
+          <CircleRating>{ oneReview.user_sound }</CircleRating>
+        </CircleContainer>
+        <VoteContainer>
+          <ArrowContainer id="upvote-container">
+            <div className='material-icons' onClick={this.handleUpvote}>arrow_upward</div>
+            <p id="upvoteCounter">{upvotes || 0}</p>
+          </ArrowContainer>
+          <ArrowContainer id="downvote-container">
+            <div className='material-icons' onClick={this.handleDownvote}>arrow_downward</div>
+            <p id="downvoteCounter">{downvotes || 0}</p>
+          </ArrowContainer>
+        </VoteContainer>
+      </ReviewMain>
+    )
+  }
+
 }
 
 export default Review;

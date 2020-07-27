@@ -23,7 +23,6 @@ const reviewSchema = new mongoose.Schema({
   upvotes: { type: 'Number', default: 0},
   downvotes: { type: 'Number', default: 0},
   post_date: { type: Date, default: Date.now },
-
   review: 'String',
 })
 
@@ -39,10 +38,9 @@ const gameSchema = new mongoose.Schema({
   gcrating_art: { type: Number, min: 1, max: 5 },
   gcrating_sound: { type: Number, min: 1, max: 5 },
   reviews: [reviewSchema],
-
 });
 
 var Game = mongoose.model('Game', gameSchema);
 
-
-module.exports = { Game };
+var Review = mongoose.model('Review', reviewSchema);
+module.exports = { Game, Review };
