@@ -31,6 +31,15 @@ const FlexOne = styled.div`
 
 function GameHighlight(props){
   const { oneGame } = props;
+
+  // Just getting each games overall rating based on the reviews
+  let total = 0;
+  oneGame.reviews.forEach(review => total = total + review.user_overall);
+  let gcScore = total / oneGame.reviews.length;
+  if(gcScore % Math.floor(gcScore) > 0){
+    gcScore = gcScore.toFIxed(2);
+  }
+
   return(
     <Container id="gameHighlight">
       <BigBoyImg id="big-image" bgImage={oneGame.image}></BigBoyImg>
@@ -46,6 +55,9 @@ function GameHighlight(props){
                 })
               }
             </ul>
+          </div>
+          <div>
+          <h3>GCrit Score: {gcScore}</h3>
           </div>
           <div>
           <h3>Tags:</h3>
