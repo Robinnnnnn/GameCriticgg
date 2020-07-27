@@ -30,22 +30,22 @@ class App extends React.Component {
       .then(games => {
         this.setState({
           gameList: games.data,
-          oneGame: games.data[0],
+          currentGame: games.data[0],
         });
       })
   }
 
   updateHighlight(game){
-    this.setState({oneGame: game})
+    this.setState({currentGame: game})
   }
 
   display(){
-    const { gameList, oneGame } = this.state;
+    const { gameList, currentGame } = this.state;
     if(gameList){
       return (
         <MainTop id="mainTop">
           <GameList allGames={ gameList } clickToUpdate={this.updateHighlight} />
-          <GameHighlight oneGame={oneGame} />
+          <GameHighlight oneGame={currentGame} />
         </MainTop>
       )
     } else{
