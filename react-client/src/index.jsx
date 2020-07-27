@@ -17,6 +17,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+
     }
 
     this.display = this.display.bind(this);
@@ -26,17 +27,20 @@ class App extends React.Component {
     //query the DB and return all 40 games
     axios.get('/gameslist')
       .then(games => {
-        this.setState({gameList: games.data});
+        this.setState({
+          gameList: games.data,
+          oneGame: games.data[0],
+        });
       })
   }
 
   display(){
-    const { gameList } = this.state;
+    const { gameList, oneGame } = this.state;
     if(gameList){
       return (
         <MainTop id="mainTop">
           <GameList allGames={ gameList } />
-          <GameHighlight />
+          <GameHighlight oneGame={oneGame} />
         </MainTop>
       )
     } else{
