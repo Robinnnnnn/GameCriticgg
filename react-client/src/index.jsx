@@ -21,6 +21,7 @@ class App extends React.Component {
     }
 
     this.display = this.display.bind(this);
+    this.updateHighlight = this.updateHighlight.bind(this);
   }
 
   componentDidMount(){
@@ -34,12 +35,16 @@ class App extends React.Component {
       })
   }
 
+  updateHighlight(game){
+    this.setState({oneGame: game})
+  }
+
   display(){
     const { gameList, oneGame } = this.state;
     if(gameList){
       return (
         <MainTop id="mainTop">
-          <GameList allGames={ gameList } />
+          <GameList allGames={ gameList } clickToUpdate={this.updateHighlight} />
           <GameHighlight oneGame={oneGame} />
         </MainTop>
       )

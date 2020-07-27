@@ -23,6 +23,8 @@ const GameListContainer = styled.div`
 class GameList extends React.Component {
   constructor(props){
     super(props);
+
+    this.handleClick = this.handleClick.bind(this);
   }
 
   renderTiles(){
@@ -30,11 +32,15 @@ class GameList extends React.Component {
 
     return allGames.map((game, index) => {
       return(
-        <GameTile key={index} theGame={game} bgImg={game.image} className='gameTile'>
+        <GameTile key={index} theGame={game} bgImg={game.image} className='gameTile' onClick={() => this.handleClick(game)}>
           <p>{game.title}</p>
         </GameTile>
       )
     })
+  }
+
+  handleClick(game) {
+    this.props.clickToUpdate(game);
   }
 
   render(){
