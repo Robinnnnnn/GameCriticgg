@@ -40,6 +40,7 @@ class App extends React.Component {
     this.display = this.display.bind(this);
     this.updateHighlight = this.updateHighlight.bind(this);
     this.changeBottomDisplay = this.changeBottomDisplay.bind(this);
+
   }
 
   componentDidMount(){
@@ -58,7 +59,35 @@ class App extends React.Component {
   }
 
   changeBottomDisplay(){
-    this.setState({bottomDisplay: !this.state.bottomDisplay})
+    const { currentGame } = this.state;
+
+    axios.get('/gameslist')
+    .then((gamelist) => {
+      let updatedCurrentGame;
+
+      //find the updated game data for the game we just reviewed
+      gamelist.data.forEach(game => {
+        if (game.title === currentGame.title){
+          updatedCurrentGame = game;
+        }
+      })
+
+      const stuffToReturn = {
+        updatedCurrentGame: updatedCurrentGame,
+        allGames: gamelist
+      }
+      return stuffToReturn;
+
+    })
+      .then(games => {
+
+        this.setState({
+          bottomDisplay: !this.state.bottomDisplay,
+          gameList: games.allGames.data,
+          currentGame: games.updatedCurrentGame,
+
+        });
+      })
   }
 
   display(){

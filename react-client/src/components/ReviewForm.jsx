@@ -85,7 +85,6 @@ class Review extends React.Component{
       })
       .then((response) => {
         changeDisplay();
-        console.log(response)
       })
 
   }
