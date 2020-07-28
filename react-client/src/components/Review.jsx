@@ -62,6 +62,8 @@ class Review extends React.Component{
     super(props);
     this.state ={
       votePressed: false,
+      supvotes: 0,
+      sdownvotes: 0,
     }
 
     this.handleDownvote = this.handleDownvote.bind(this);
@@ -72,8 +74,10 @@ class Review extends React.Component{
     //increment the upvote counter on the review
       //axios request to update the record
     //toggle the state to votePressed
+
     const reviewId = this.props.oneReview['_id'];
     const gameId = this.props.gameid;
+
     if(this.state.votePressed){
       return;
     } else {
@@ -82,11 +86,14 @@ class Review extends React.Component{
         url: `/upvote/${reviewId}/${gameId}`,
       })
       .then(() => {
-        this.setState({ votePressed : !this.state.votePressed})
+        this.setState({
+          votePressed : !this.state.votePressed,
+
+        })
+        // supvotes: this.state.supvotes + 1,
       })
+
     }
-
-
 
   }
 
@@ -102,7 +109,11 @@ class Review extends React.Component{
         url: `/downvote/${reviewId}/${gameId}`,
       })
         .then(() => {
-          this.setState({ votePressed : !this.state.votePressed})
+          this.setState({
+            votePressed : !this.state.votePressed,
+
+          })
+          // sdownvotes: this.state.sdownvotes++,
         })
     }
   }
@@ -110,6 +121,8 @@ class Review extends React.Component{
   render(){
     const { oneReview } = this.props;
     const { upvotes, downvotes } = this.props.oneReview;
+    const { supvotes, sdownvotes } = this.state;
+
     return (
       // flex - column - alignright
       <ReviewMain className="game-review">
@@ -126,11 +139,11 @@ class Review extends React.Component{
         <VoteContainer>
           <ArrowContainer id="upvote-container">
             <div className='material-icons' onClick={this.handleUpvote}>arrow_upward</div>
-            <p id="upvoteCounter">{upvotes || 0}</p>
+            <p id="upvoteCounter">{upvotes || supvotes || 0}</p>
           </ArrowContainer>
           <ArrowContainer id="downvote-container">
             <div className='material-icons' onClick={this.handleDownvote}>arrow_downward</div>
-            <p id="downvoteCounter">{downvotes || 0}</p>
+            <p id="downvoteCounter">{downvotes || sdownvotes || 0}</p>
           </ArrowContainer>
         </VoteContainer>
       </ReviewMain>

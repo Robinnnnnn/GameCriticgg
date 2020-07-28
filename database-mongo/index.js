@@ -40,7 +40,27 @@ const gameSchema = new mongoose.Schema({
   reviews: [reviewSchema],
 });
 
+const userSchema = new mongoose.Schema({
+  author: 'String',
+  intPoints : {type: 'Number', default:0 },
+  reviews: [reviewSchema],
+})
+
+userSchema.methods.calculatePoints = function() {
+  let sum = 0;
+  this.reviews.forEach(review => {
+    let upvotePoints = review.upvotes * 2;
+    let reviewPoint = upvotePoints - review.downvotes;
+    sum = sum + reviewPoints;
+  })
+  let avg = sum / this.reviews.length;
+  return avg;
+}
+
+const User = mongoose.model('User', userSchema )
+
 var Game = mongoose.model('Game', gameSchema);
 
 var Review = mongoose.model('Review', reviewSchema);
-module.exports = { Game, Review };
+
+module.exports = { Game, Review, User };

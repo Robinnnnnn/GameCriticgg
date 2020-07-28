@@ -8,7 +8,7 @@ const Holder = styled.div`
   width: 60%;
 `;
 
-class ReviewForm extends React.Component{
+class Review extends React.Component{
   constructor(props){
     super(props);
 
@@ -76,18 +76,23 @@ class ReviewForm extends React.Component{
       url: `/newreview/${gameId}`,
       data: reviewObj,
     })
+      .then(() => {
+        axios({
+          method: 'post',
+          url: `/userreview/${username}`,
+          data: reviewObj
+        })
+      })
       .then((response) => {
         changeDisplay();
         console.log(response)
       })
 
-
-
   }
 
   render(){
     return(
-      <form>
+       <form>
 
         <label>
           Username:
@@ -98,43 +103,43 @@ class ReviewForm extends React.Component{
           <label>
             Gameplay Score : <br></br>
             <input type="radio" value='1' id="g1" name='gameplay' onChange={this.handleGameplayChange} />
-            <label for='g1'>1</label> <br></br>
+            <label htmlFor='g1'>1</label> <br></br>
             <input type="radio" value='2' id="g1" name='gameplay' onChange={this.handleGameplayChange} />
-            <label for='g1'>2</label> <br></br>
+            <label htmlFor='g1'>2</label> <br></br>
             <input type="radio" value='3' id="g1" name='gameplay' onChange={this.handleGameplayChange} />
-            <label for='g1'>3</label> <br></br>
+            <label htmlFor='g1'>3</label> <br></br>
             <input type="radio" value='4' id="g1" name='gameplay' onChange={this.handleGameplayChange} />
-            <label for='g1'>4</label> <br></br>
+            <label htmlFor='g1'>4</label> <br></br>
             <input type="radio" value='5' id="g1" name='gameplay' onChange={this.handleGameplayChange} />
-            <label for='g1'>5</label> <br></br>
+            <label htmlFor='g1'>5</label> <br></br>
           </label> <br></br>
 
           <label>
             Game Art Score :<br></br>
             <input type="radio" value='1' id="a1" name='art' onChange={this.handleArtChange} />
-            <label for='a1'>1</label> <br></br>
+            <label htmlFor='a1'>1</label> <br></br>
             <input type="radio" value='2' id="a1" name='art' onChange={this.handleArtChange} />
-            <label for='a1'>2</label> <br></br>
+            <label htmlFor='a1'>2</label> <br></br>
             <input type="radio" value='3' id="a1" name='art' onChange={this.handleArtChange} />
-            <label for='a1'>3</label> <br></br>
+            <label htmlFor='a1'>3</label> <br></br>
             <input type="radio" value='4' id="a1" name='art' onChange={this.handleArtChange} />
-            <label for='a1'>4</label> <br></br>
+            <label htmlFor='a1'>4</label> <br></br>
             <input type="radio" value='5' id="a1" name='art' onChange={this.handleArtChange} />
-            <label for='a1'>5</label> <br></br>
+            <label htmlFor='a1'>5</label> <br></br>
           </label> <br></br>
 
           <label>
             Game Sound Score :<br></br>
             <input type="radio" value='1' id="s1" name='sound' onChange={this.handleSoundChange} />
-            <label for='s1'>1</label> <br></br>
+            <label htmlFor='s1'>1</label> <br></br>
             <input type="radio" value='2' id="s1" name='sound' onChange={this.handleSoundChange} />
-            <label for='s1'>2</label> <br></br>
+            <label htmlFor='s1'>2</label> <br></br>
             <input type="radio" value='3' id="s1" name='sound' onChange={this.handleSoundChange} />
-            <label for='s1'>3</label> <br></br>
+            <label htmlFor='s1'>3</label> <br></br>
             <input type="radio" value='4' id="s1" name='sound' onChange={this.handleSoundChange} />
-            <label for='s1'>4</label> <br></br>
+            <label htmlFor='s1'>4</label> <br></br>
             <input type="radio" value='5' id="s1" name='sound' onChange={this.handleSoundChange} />
-            <label for='s1'>5</label> <br></br>
+            <label htmlFor='s1'>5</label> <br></br>
           </label> <br></br>
         </Holder>
 
@@ -151,5 +156,5 @@ class ReviewForm extends React.Component{
   }
 }
 
-export default ReviewForm;
+export default Review;
 
