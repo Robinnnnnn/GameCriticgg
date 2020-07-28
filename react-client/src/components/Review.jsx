@@ -77,20 +77,19 @@ class Review extends React.Component{
 
     const reviewId = this.props.oneReview['_id'];
     const gameId = this.props.gameid;
+    const author = this.props.oneReview.author;
 
     if(this.state.votePressed){
       return;
     } else {
       axios({
         method:'put',
-        url: `/upvote/${reviewId}/${gameId}`,
+        url: `/upvote/${reviewId}/${gameId}/${author}`,
       })
       .then(() => {
         this.setState({
           votePressed : !this.state.votePressed,
-
         })
-        // supvotes: this.state.supvotes + 1,
       })
 
     }

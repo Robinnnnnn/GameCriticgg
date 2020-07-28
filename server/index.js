@@ -16,6 +16,7 @@ app.get('/gameslist', (req, res) => {
   .then(allGames => res.send(allGames))
 })
 
+//adds review to the games reviewlist
 app.post('/newreview/:gameid', async (req, res) => {
 
   // console.log("request data", req.body);
@@ -48,24 +49,35 @@ app.put('/downvote/:reviewid/:gameid', async (req, res) => {
   res.send(complete)
 });
 
-app.put('/upvote/:reviewid/:gameid', async (req, res) => {
-  let reviewId = req.params.reviewid;
-  let gameId = req.params.gameid;
-
+app.put('/upvote/:reviewid/:gameid/:author', async (req, res) => {
+  const reviewId = req.params.reviewid;
+  const gameId = req.params.gameid;
+  const username = req.params.author;
+  // updated the game table
   const game = await Game.findOne({'_id': gameId});
   const reviews = game.reviews;
   reviews.forEach(review => {
     if(review['_id'] == reviewId){
       let reviewToUpdate = review;
-      console.log(reviewToUpdate)
       reviewToUpdate.upvotes = reviewToUpdate.upvotes + 1;
     }
   })
-
   const complete = await game.save();
+
+  // updates the user table
+  // need to adjust the comparison variable to a uniqid
+  // const authorObj = await User.findOne({ author: username});
+  // for( let i = 0; i < authorObj.reviews.length; i++) {
+  //   if(authorObj.reviews[i]['_id'] == reviewId){
+
+  //     authorObj.reviews[i].upvotes = authorObj.reviews[i].upvotes + 1;
+  //   }
+  // }
+  // const saved = await authorObj.save();
   res.send(complete)
 });
 
+// adds review to the users reviewlist table
 app.post('/userreview/:author', async (req, res) => {
   //query the users table
     //if the user doesnt exist, create a user entry

@@ -1,17 +1,11 @@
 var mongoose  = require('mongoose');
 const uri = 'mongodb+srv://robinlifshitz:robinlifshitz@rl-demos.ogefe.mongodb.net/GameCritique?retryWrites=true&w=majority';
 
-
 mongoose.connect( uri , { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to MongoDB Atlas: GameCritique')
   })
   .catch(err => console.log(err))
-
-
-
-//const db = mongoose.connection;
-
 
 // is part of the game schema
 const reviewSchema = new mongoose.Schema({
@@ -24,7 +18,9 @@ const reviewSchema = new mongoose.Schema({
   downvotes: { type: 'Number', default: 0},
   post_date: { type: Date, default: Date.now },
   review: 'String',
+  unique: 'String',
 })
+
 
 const gameSchema = new mongoose.Schema({
   title: 'String',

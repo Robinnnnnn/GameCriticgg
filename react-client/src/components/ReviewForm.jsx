@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import uniqid from 'uniqid';
 
 const Holder = styled.div`
   display:flex;
@@ -62,6 +63,8 @@ class Review extends React.Component{
     const gameId = this.props.oneGame['_id'];
     const { username, gameplay, art, sound, text } = this.state;
 
+    const getUnique = uniqid();
+
     const reviewObj = {
       author: username,
       user_overall: this.getOverall(),
@@ -69,6 +72,7 @@ class Review extends React.Component{
       user_art: art,
       user_sound: sound,
       review: text,
+      uniqiu: getUnique,
     }
 
     axios({

@@ -30,6 +30,13 @@ const MainBottom = styled.div`
   height: 50vh;
 `;
 
+const CreateReview = styled.div`
+  height: 25px;
+  width: 100px;
+  background-color: red;
+  line-height 25px;
+`;
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -101,7 +108,7 @@ class App extends React.Component {
           </MainTop>
           <MainBottom>
             <ReviewList oneGame={currentGame} />
-            <div onClick={this.changeBottomDisplay}> Create Review </div>
+            <CreateReview onClick={this.changeBottomDisplay}> Create Review </CreateReview>
           </MainBottom>
         </Main>
 
