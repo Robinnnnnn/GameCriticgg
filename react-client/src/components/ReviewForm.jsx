@@ -67,7 +67,6 @@ class Review extends React.Component{
 
     // stored because we want to use the same unique id twice for each table
     const getUnique = uniqid();
-    console.log(getUnique);
 
     const reviewObj = {
       author: username,

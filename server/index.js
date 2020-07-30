@@ -53,28 +53,33 @@ app.put('/upvote/:reviewid/:gameid/:author', async (req, res) => {
   const reviewId = req.params.reviewid;
   const gameId = req.params.gameid;
   const username = req.params.author;
-  // updated the game table
+
+  // updates the review upvotes in the Game Table
   const game = await Game.findOne({'_id': gameId});
   const reviews = game.reviews;
   reviews.forEach(review => {
-    if(review['_id'] == reviewId){
+    if(review.unique == reviewId){
       let reviewToUpdate = review;
       reviewToUpdate.upvotes = reviewToUpdate.upvotes + 1;
+      console.log('Game Review updated')
     }
   })
-  const complete = await game.save();
+  const completeGameUpdate = await game.save();
 
   // updates the user table
-  // need to adjust the comparison variable to a uniqid
-  // const authorObj = await User.findOne({ author: username});
-  // for( let i = 0; i < authorObj.reviews.length; i++) {
-  //   if(authorObj.reviews[i]['_id'] == reviewId){
+  const authorObj = await User.findOne({ author: username});
+  for( let i = 0; i < authorObj.reviews.length; i++) {
+    console.log("looping author reviews")
+    if(authorObj.reviews[i].unique == reviewId){
+      authorObj.reviews[i].upvotes = authorObj.reviews[i].upvotes + 1;
+      console.log("updated upvotes")
+      break;
+    }
 
-  //     authorObj.reviews[i].upvotes = authorObj.reviews[i].upvotes + 1;
-  //   }
-  // }
-  // const saved = await authorObj.save();
-  res.send(complete)
+  }
+  const completeUserUpdate = await authorObj.save();
+
+  res.send("Upvotes Updated")
 });
 
 // adds review to the users reviewlist table

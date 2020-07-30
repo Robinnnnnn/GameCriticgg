@@ -56,7 +56,6 @@ const ArrowContainer = styled.div`
 `;
 
 
-
 class Review extends React.Component{
   constructor(props){
     super(props);
@@ -73,12 +72,15 @@ class Review extends React.Component{
   handleUpvote(e) {
     //increment the upvote counter on the review
       //axios request to update the record
-    //toggle the state to votePressed
+      //toggle the state to votePressed
 
-    const reviewId = this.props.oneReview['_id'];
+    const reviewId = this.props.oneReview.unique;
     const gameId = this.props.gameid;
     const author = this.props.oneReview.author;
 
+    //checks if user alredy voted
+    // if they refresh the page, they will be able to vote again
+      // keep a log of all the reviews the user voted on and crosscheck to see if they already voted on this review
     if(this.state.votePressed){
       return;
     } else {
@@ -138,7 +140,7 @@ class Review extends React.Component{
         <VoteContainer>
           <ArrowContainer id="upvote-container">
             <div className='material-icons' onClick={this.handleUpvote}>arrow_upward</div>
-            <p id="upvoteCounter">{upvotes || supvotes || 0}</p>
+            <p id="upvoteCounter">{upvotes || 0}</p>
           </ArrowContainer>
           <ArrowContainer id="downvote-container">
             <div className='material-icons' onClick={this.handleDownvote}>arrow_downward</div>
