@@ -47,6 +47,7 @@ class App extends React.Component {
     this.display = this.display.bind(this);
     this.updateHighlight = this.updateHighlight.bind(this);
     this.changeBottomDisplay = this.changeBottomDisplay.bind(this);
+    this.updateReviewVotes = this.updateReviewVotes.bind(this);
 
   }
 
@@ -108,7 +109,7 @@ class App extends React.Component {
             <GameHighlight oneGame={currentGame} />
           </MainTop>
           <MainBottom>
-            <ReviewList oneGame={currentGame} />
+            <ReviewList oneGame={currentGame} updateVotes={this.updateReviewVotes} />
             <CreateReview onClick={this.changeBottomDisplay}> Create Review </CreateReview>
           </MainBottom>
         </Main>
@@ -127,6 +128,15 @@ class App extends React.Component {
     } else {
       return <h1>Sec, fixing loadout...</h1>
     }
+  }
+
+  updateReviewVotes(gameId){
+    axios.get(`/updatereview/${gameId}`)
+      .then(updatedGame => {
+        this.setState({
+          currentGame: updatedGame.data,
+        })
+      })
   }
 
 
