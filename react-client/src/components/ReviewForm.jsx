@@ -60,10 +60,14 @@ class Review extends React.Component{
     // send as post request to the db and then trigger and refresh of review list component
     event.preventDefault();
     const { changeDisplay } = this.props;
+
+    // gameId is how we find the specific game in the DB
     const gameId = this.props.oneGame['_id'];
     const { username, gameplay, art, sound, text } = this.state;
 
+    // stored because we want to use the same unique id twice for each table
     const getUnique = uniqid();
+    console.log(getUnique);
 
     const reviewObj = {
       author: username,
@@ -72,7 +76,7 @@ class Review extends React.Component{
       user_art: art,
       user_sound: sound,
       review: text,
-      uniqiu: getUnique,
+      unique: getUnique,
     }
 
     axios({

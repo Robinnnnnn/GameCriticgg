@@ -99,6 +99,7 @@ class App extends React.Component {
 
   display(){
     const { gameList, currentGame, bottomDisplay } = this.state;
+
     if ( gameList && bottomDisplay ) {
       return (
         <Main>

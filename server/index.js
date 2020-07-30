@@ -102,8 +102,6 @@ app.post('/userreview/:author', async (req, res) => {
 
 })
 
-
-
 app.listen(3000, function() {
   console.log('listening on port 3000!');
 });
@@ -112,7 +110,7 @@ app.listen(3000, function() {
 /* -------------------------------------------------------------------------------- */
 
 //***USED TO LOAD GAME DATA INTO DB***
-// app.get('/games', function (req, res) {
+// app.get('/games/populate', function (req, res) {
 //   let games;
 //   axios.get('https://api.rawg.io/api/games', {
 //     params: {
@@ -122,12 +120,10 @@ app.listen(3000, function() {
 //   })
 //     .then(results => {
 //       let listOfGames = results.data.results;
-//       console.log("List of Games: ", listOfGames.length)
 
 //       listOfGames.forEach( async (game) => {
 //         const genresArr = game.genres.map(genre => genre.name);
 //         const platformsArr = game.platforms.map(aPlatform => aPlatform.platform.name);
-
 //         //creates and adds a game to the db
 //         await Game.create({
 //           title: game.name,
@@ -136,28 +132,15 @@ app.listen(3000, function() {
 //           image: game.background_image,
 //           metacritic: game.metacritic,
 //           genres: genresArr,
-//           gcRating_overall: 1,
-//           gcRating_gameplay: 1,
-//           gcRating_art: 1,
-//           gcRating_sound: 1,
-//           reviews: {
-//             author:'Robin Lifshitz',
-//             user_overall: 5,
-//             user_gameplay: 5,
-//             user_art: 5,
-//             user_sound: 5,
-//             upvotes: 0,
-//             downvotes: 0,
-//             review:'Tis good.'
-//           }
-
+//           gcRating_overall: 0,
+//           gcRating_gameplay: 0,
+//           gcRating_art: 0,
+//           gcRating_sound: 0,
 //         });
-
 //       })//end of looping through the games returned from RAWG
 //     })
 //     .catch((err) => res.send(err))
 //     .then(() => res.send('All Games Added to DB'))
-
 // });
 
 /* Created User Table Seed */
@@ -171,7 +154,8 @@ app.listen(3000, function() {
 //     user_art: 5,
 //     user_sound: 5,
 //     review: 'A test String for USer Table Creation',
-//   }]
+//   }],
+//   unique: uniqid(),
 // })
 // .then((user) => res.send(user))
 
