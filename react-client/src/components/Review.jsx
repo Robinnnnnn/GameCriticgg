@@ -56,7 +56,6 @@ const ArrowContainer = styled.div`
 `;
 
 
-
 class Review extends React.Component{
   constructor(props){
     super(props);
@@ -66,61 +65,43 @@ class Review extends React.Component{
       sdownvotes: 0,
     }
 
-    this.handleDownvote = this.handleDownvote.bind(this);
-    this.handleUpvote = this.handleUpvote.bind(this);
+    this.handleVote = this.handleVote.bind(this);
   }
 
-  handleUpvote(e) {
+  handleVote(voteType) {
     //increment the upvote counter on the review
       //axios request to update the record
-    //toggle the state to votePressed
-
-    const reviewId = this.props.oneReview['_id'];
+      //toggle the state to votePressed
+    const reviewId = this.props.oneReview.unique;
     const gameId = this.props.gameid;
     const author = this.props.oneReview.author;
 
+    //checks if user alredy voted
+    // if they refresh the page, they will be able to vote again
+      // keep a log of all the reviews the user voted on and crosscheck to see if they already voted on this review
     if(this.state.votePressed){
       return;
     } else {
       axios({
         method:'put',
-        url: `/upvote/${reviewId}/${gameId}/${author}`,
+        url: `/${voteType}/${reviewId}/${gameId}/${author}`,
       })
       .then(() => {
         this.setState({
           votePressed : !this.state.votePressed,
         })
       })
-
-    }
-
-  }
-
-  handleDownvote(e) {
-    const reviewId = this.props.oneReview['_id'];
-    const gameId = this.props.gameid;
-    const downvoteValue = document.getElementById('downvoteCounter').textContent;
-    if (this.state.votePressed){
-      return;
-    }else{
-      axios({
-        method: 'put',
-        url: `/downvote/${reviewId}/${gameId}`,
+      .then(() => {
+        console.log("called updatevotes")
+        this.props.updateVotes(this.props.gameid)
       })
-        .then(() => {
-          this.setState({
-            votePressed : !this.state.votePressed,
-
-          })
-          // sdownvotes: this.state.sdownvotes++,
-        })
     }
+
   }
 
   render(){
     const { oneReview } = this.props;
     const { upvotes, downvotes } = this.props.oneReview;
-    const { supvotes, sdownvotes } = this.state;
 
     return (
       // flex - column - alignright
@@ -137,12 +118,12 @@ class Review extends React.Component{
         </CircleContainer>
         <VoteContainer>
           <ArrowContainer id="upvote-container">
-            <div className='material-icons' onClick={this.handleUpvote}>arrow_upward</div>
-            <p id="upvoteCounter">{upvotes || supvotes || 0}</p>
+            <div className='material-icons' onClick={() => this.handleVote('upvote')}>arrow_upward</div>
+            <p id="upvoteCounter">{upvotes}</p>
           </ArrowContainer>
           <ArrowContainer id="downvote-container">
-            <div className='material-icons' onClick={this.handleDownvote}>arrow_downward</div>
-            <p id="downvoteCounter">{downvotes || sdownvotes || 0}</p>
+            <div className='material-icons' onClick={() => this.handleVote('downvote')}>arrow_downward</div>
+            <p id="downvoteCounter">{downvotes}</p>
           </ArrowContainer>
         </VoteContainer>
       </ReviewMain>
