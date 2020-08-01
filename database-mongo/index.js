@@ -1,5 +1,5 @@
 var mongoose  = require('mongoose');
-const uri = 'mongodb+srv://robinlifshitz:robinlifshitz@rl-demos.ogefe.mongodb.net/GameCritique?retryWrites=true&w=majority';
+const uri = require('../config/uri.js');
 
 mongoose.connect( uri , { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {

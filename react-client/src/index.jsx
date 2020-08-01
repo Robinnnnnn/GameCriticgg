@@ -34,7 +34,7 @@ const CreateReview = styled.div`
   height: 25px;
   width: 100px;
   background-color: red;
-  line-height 25px;
+  line-height: 25px;
 `;
 
 class App extends React.Component {
