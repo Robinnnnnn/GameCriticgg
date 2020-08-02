@@ -32,11 +32,16 @@ class GameList extends React.Component {
 
     return allGames.map((game, index) => {
       return(
-        <GameTile key={index} theGame={game} bgImg={game.image} className='gameTile' onClick={() => this.handleClick(game)}>
+        <GameTile 
+        key={index} 
+        theGame={game} 
+        bgImg={game.image} 
+        className='gameTile' 
+        onClick={() => this.handleClick(game)}>
           <p>{game.title}</p>
         </GameTile>
       )
-    })
+    }) 
   }
 
   handleClick(game) {
@@ -47,7 +52,7 @@ class GameList extends React.Component {
     return(
       <GameListContainer id="gameListContainer">
         {this.renderTiles()}
-      </GameListContainer>
+      </GameListContainer> 
     )
   }
 }

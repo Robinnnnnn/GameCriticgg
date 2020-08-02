@@ -92,7 +92,7 @@ class Review extends React.Component{
         })
       })
       .then(() => {
-        console.log("called updatevotes")
+        // used to update state of app so that new upvote number is displayed automatically 
         this.props.updateVotes(this.props.gameid)
       })
     }
