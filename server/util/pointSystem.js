@@ -23,9 +23,10 @@ const points = {
         // subtracts .5 points for each downvot (maybe less)
         let int = totalUp - totalDown * 0.2;
         console.log("Total Points", int);
-        return { points: int, author: userObj.author };
+        return { points: int, author: user.author };
       })
       .then((a) => {
+        console.log("A Object: ", a)
         // Stores Int points back in the user obj
         axios.put(`http://localhost:3000/userintellectpoints/${a.author}`, {
           intellect: a.points,

@@ -132,14 +132,18 @@ app.post('/userreview/:author', async (req, res) => {
 })
 
 // adds the intellect points to the users db
-app.put('./userintellectpoints/:author', async (req, res) => {
+app.put('/userintellectpoints/:author', async (req, res) => {
   const username = req.params.author;
-  console.log(req.body);
-  // find the author of the review by their UN
-  const userObj = await User.find({author: username});
 
-  // return the entire author obj
-  res.send(userObj);
+  console.log(req.body)
+  
+  // // find the author of the review by their UN
+  const userObj = await User.find({author: username});
+  userObj[0].intPoints = req.body.intellect;
+
+  const intellectSaved = await userObj[0].save();
+  // // return the entire author obj
+  res.send(intellectSaved);
 
 })
 
