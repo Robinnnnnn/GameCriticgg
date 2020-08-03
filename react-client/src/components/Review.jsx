@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import axios from "axios";
+import CircleRating from "./CircleRating.jsx";
 
-const CircleRating = styled.div`
+const CircleRatingBox = styled.div`
   height: 50px;
   width: 50px;
   border-radius: 50%;
@@ -109,10 +110,18 @@ class Review extends React.Component {
           <div>{oneReview.review}</div>
         </TextContainer>
         <CircleContainer>
-          <CircleRating>{oneReview.user_overall}</CircleRating>
+          <CircleRating radius="50" stroke="6" value={oneReview.user_overall} />
+          <CircleRating
+            radius="50"
+            stroke="6"
+            value={oneReview.user_gameplay}
+          />
+          <CircleRating radius="50" stroke="6" value={oneReview.user_art} />
+          <CircleRating radius="50" stroke="6" value={oneReview.user_sound} />
+          {/* <CircleRating>{oneReview.user_overall}</CircleRating>
           <CircleRating>{oneReview.user_gameplay}</CircleRating>
           <CircleRating>{oneReview.user_art}</CircleRating>
-          <CircleRating>{oneReview.user_sound}</CircleRating>
+          <CircleRating>{oneReview.user_sound}</CircleRating> */}
         </CircleContainer>
         <VoteContainer>
           <ArrowContainer id="upvote-container">

@@ -150,8 +150,7 @@ class App extends React.Component {
   }
 
   render() {
-    // return <div>{this.display()}</div>;
-    return <CircleRating radius="50" stroke="4" value="4" />;
+    return <div>{this.display()}</div>;
   }
 }
 

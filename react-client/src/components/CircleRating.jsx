@@ -6,6 +6,19 @@ const ProgContainer = styled.div`
   width: 100%;
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
+  position: relative;
+`;
+
+const Num = styled.div`
+  height: 100%;
+  width: 100%;
+  line-height: 100%;
+  text-align: center;
+  position: absolute;
+  transform: rotate(90deg);
+  top: 0px;
+  left: 70px;
+  /* transform-origin: 50% 50%; */
 `;
 
 class CircleRating extends React.Component {
@@ -15,6 +28,7 @@ class CircleRating extends React.Component {
     const { radius, stroke, value } = this.props;
 
     this.getProgress = this.getProgress.bind(this);
+    this.getStrokeColor = this.getStrokeColor.bind(this);
 
     this.normalizedRadius = radius - stroke * 2;
     this.circumference = this.normalizedRadius * 2 * Math.PI;
@@ -22,6 +36,20 @@ class CircleRating extends React.Component {
 
   getProgress(val) {
     return val * 20;
+  }
+
+  getStrokeColor(val) {
+    if (val == 1) {
+      return "#f5424e";
+    } else if (val == 2) {
+      return "#f5a142";
+    } else if (val == 3) {
+      return "#6ff542";
+    } else if (val == 4) {
+      return "#42cef5";
+    } else {
+      return "#8142f5";
+    }
   }
 
   render() {
@@ -34,7 +62,7 @@ class CircleRating extends React.Component {
       <ProgContainer>
         <svg height={radius * 2} width={radius * 2}>
           <circle
-            stroke="black"
+            stroke={this.getStrokeColor(value)}
             fill="transparent"
             strokeWidth={stroke}
             strokeDasharray={this.circumference + " " + this.circumference}
@@ -45,6 +73,7 @@ class CircleRating extends React.Component {
             strokeLinecap="round"
           />
         </svg>
+        <Num>{value}</Num>
       </ProgContainer>
     );
   }
