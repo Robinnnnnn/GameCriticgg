@@ -1,16 +1,16 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const faker = require('faker');
-const axios = require('axios');
-const uniqid = require('uniqid');
-const points = require('./util/pointSystem.js')
+const express = require("express");
+const bodyParser = require("body-parser");
+const faker = require("faker");
+const axios = require("axios");
+const uniqid = require("uniqid");
+const points = require("./util/pointSystem.js");
 
 // import of db models
-const { Game, Review, User } = require('../database-mongo');
+const { Game, Review, User } = require("../database-mongo");
 
 const app = express();
 
-app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(express.static(__dirname + "/../react-client/dist"));
 app.use(bodyParser.json());
 
 /* ALL GAMECRITIC ENDPOINTS */
@@ -18,14 +18,12 @@ app.use(bodyParser.json());
 /* ------------------------ */
 
 // gets a list of all games from api
-app.get('/gameslist', (req, res) => {
- Game.find({})
-  .then(allGames => res.send(allGames))
-})
+app.get("/gameslist", (req, res) => {
+  Game.find({}).then((allGames) => res.send(allGames));
+});
 
 //adds review to the games reviewlist
-app.post('/newreview/:gameid', async (req, res) => {
-
+app.post("/newreview/:gameid", async (req, res) => {
   let gameObjId = req.params.gameid;
   let newReview = req.body;
 
@@ -33,129 +31,121 @@ app.post('/newreview/:gameid', async (req, res) => {
   game.reviews.push(newReview);
   await game.save();
 
-  res.send('Complete')
-
+  res.send("Complete");
 });
 
 // updates all instances of votes across all collections in db
-app.put('/:votetype/:reviewid/:gameid/:author', async (req, res) => {
-  const {reviewid, gameid, author, votetype} = req.params;
+app.put("/:votetype/:reviewid/:gameid/:author", async (req, res) => {
+  const { reviewid, gameid, author, votetype } = req.params;
 
-  
-  if(votetype == 'upvote'){
+  if (votetype == "upvote") {
     // updates the review upvotes in the Game Table
-    const game = await Game.findOne({'_id': gameid});
+    const game = await Game.findOne({ _id: gameid });
     const reviews = game.reviews;
     //loops through all the review array to find our uniqie rerview
-    reviews.forEach(review => {
-      if(review.unique == reviewid){
+    reviews.forEach((review) => {
+      if (review.unique == reviewid) {
         let reviewToUpdate = review;
         //increment upvote count on review
         reviewToUpdate.upvotes = reviewToUpdate.upvotes + 1;
       }
-    })
+    });
     const completeGameUpdate = await game.save();
 
     // updates the user table
-    const authorObj = await User.findOne({ author: author});
-    for( let i = 0; i < authorObj.reviews.length; i++) {
-      if(authorObj.reviews[i].unique == reviewid){
+    const authorObj = await User.findOne({ author: author });
+    for (let i = 0; i < authorObj.reviews.length; i++) {
+      if (authorObj.reviews[i].unique == reviewid) {
         authorObj.reviews[i].upvotes = authorObj.reviews[i].upvotes + 1;
         break;
       }
     }
     // save the new votes to that author obj
     await authorObj.save();
-
-  } else if ( votetype == 'downvote') {
-      const game = await Game.findOne({'_id': gameid});
-      const reviews = game.reviews;
-      reviews.forEach(review => {
-        if(review.unique == reviewid){
-          let reviewToUpdate = review;
-          reviewToUpdate.downvotes = reviewToUpdate.downvotes + 1;
-        }
-      })
-      const completeGameUpdate = await game.save();
-
-      // updates the user table
-      const authorObj = await User.findOne({ author: author});
-      for( let i = 0; i < authorObj.reviews.length; i++) {
-        if(authorObj.reviews[i].unique == reviewid){
-          authorObj.reviews[i].downvotes = authorObj.reviews[i].downvotes + 1;
-          break;
-        }
+  } else if (votetype == "downvote") {
+    const game = await Game.findOne({ _id: gameid });
+    const reviews = game.reviews;
+    reviews.forEach((review) => {
+      if (review.unique == reviewid) {
+        let reviewToUpdate = review;
+        reviewToUpdate.downvotes = reviewToUpdate.downvotes + 1;
       }
-      await authorObj.save();
+    });
+    const completeGameUpdate = await game.save();
+
+    // updates the user table
+    const authorObj = await User.findOne({ author: author });
+    for (let i = 0; i < authorObj.reviews.length; i++) {
+      if (authorObj.reviews[i].unique == reviewid) {
+        authorObj.reviews[i].downvotes = authorObj.reviews[i].downvotes + 1;
+        break;
+      }
+    }
+    await authorObj.save();
   }
 
   // after vote is added, a reevaluation of the reviewers points occurs
   // this triggers a call to the /userintellectpoints endpoint
   points.getIntPoints(author);
 
-
-  res.send("Votes Updated")
+  res.send("Votes Updated");
 });
 
 // returns the updated review obj back after a succcessful up or downvote
-app.get('/updatereview/:gameId', async (req, res) => {
+app.get("/updatereview/:gameId", async (req, res) => {
   const gameid = req.params.gameId;
 
-  const updatedGame = await Game.findById(gameid)
-  res.send(updatedGame)
-
-})
+  const updatedGame = await Game.findById(gameid);
+  res.send(updatedGame);
+});
 
 // adds review to the users reviewlist table
-app.post('/userreview/:author', async (req, res) => {
+app.post("/userreview/:author", async (req, res) => {
   //query the users table
-    //if the user doesnt exist, create a user entry
-      // add the review to that user
-    // else if the user does exist
-      // push the review to their reviews array
+  //if the user doesnt exist, create a user entry
+  // add the review to that user
+  // else if the user does exist
+  // push the review to their reviews array
   let newReview = req.body;
   const authorName = req.params.author;
-  const isUser = await User.find({author: authorName});
+  const isUser = await User.find({ author: authorName });
   // res.send(isUser)
-  if(isUser.length > 0){
+  if (isUser.length > 0) {
     isUser[0]["reviews"].push(newReview);
     const complete = await isUser[0].save();
     res.send(complete);
-  }else{
+  } else {
     await User.create({
-        author: authorName,
-        reviews: newReview,
-      })
-      .then((user) => res.send(user))
+      author: authorName,
+      reviews: newReview,
+    }).then((user) => res.send(user));
   }
-
-})
+});
 
 // adds the intellect points to the users db
-app.put('/userintellectpoints/:author', async (req, res) => {
+app.put("/userintellectpoints/:author", async (req, res) => {
   const username = req.params.author;
 
-  console.log(req.body)
-  
+  console.log(req.body);
+
   // // find the author of the review by their UN
-  const userObj = await User.find({author: username});
+  const userObj = await User.find({ author: username });
   userObj[0].intPoints = req.body.intellect;
 
   const intellectSaved = await userObj[0].save();
   // // return the entire author obj
   res.send(intellectSaved);
-
-})
+});
 
 // returns the user obj so we can see all their reviews
-app.get('/userreviews/:author', async (req, res) => {
+app.get("/userreviews/:author", async (req, res) => {
   const user = req.params.author;
-  const userObj = await User.find({author: user});
+  const userObj = await User.find({ author: user });
   res.send(userObj);
-})
+});
 
-app.listen(3000, function() {
-  console.log('listening on port 3000!');
+app.listen(3000, function () {
+  console.log("listening on port 3000!");
 });
 
 /* -------------------------------------------------------------------------------- */
@@ -210,4 +200,3 @@ app.listen(3000, function() {
 //   unique: uniqid(),
 // })
 // .then((user) => res.send(user))
-

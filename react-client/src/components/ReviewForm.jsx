@@ -14,7 +14,7 @@ class Review extends React.Component {
     super(props);
 
     this.state = {
-      username: "", 
+      username: "",
       text: "Write Review Here",
       art: null,
       sound: null,

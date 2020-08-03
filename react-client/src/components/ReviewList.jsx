@@ -1,6 +1,6 @@
-import React from 'react';
-import Review from './Review.jsx';
-import styled from 'styled-components';
+import React from "react";
+import Review from "./Review.jsx";
+import styled from "styled-components";
 
 const ReviewListContainer = styled.div`
   display: flex;
@@ -13,26 +13,26 @@ const ReviewListContainer = styled.div`
 `;
 
 class ReviewList extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <ReviewListContainer id="review-container">
         {this.props.oneGame.reviews.map((review, index) => {
-          return <Review
-            oneReview={review}
-            key={index}
-            gameid={this.props.oneGame['_id']}
-            updateVotes={this.props.updateVotes}
+          return (
+            <Review
+              oneReview={review}
+              key={index}
+              gameid={this.props.oneGame["_id"]}
+              updateVotes={this.props.updateVotes}
             />
+          );
         })}
       </ReviewListContainer>
-    )
+    );
   }
-
 }
 
 export default ReviewList;

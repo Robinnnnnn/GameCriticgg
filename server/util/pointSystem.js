@@ -26,7 +26,7 @@ const points = {
         return { points: int, author: user.author };
       })
       .then((a) => {
-        console.log("A Object: ", a)
+        console.log("A Object: ", a);
         // Stores Int points back in the user obj
         axios.put(`http://localhost:3000/userintellectpoints/${a.author}`, {
           intellect: a.points,
