@@ -7,6 +7,7 @@ import GameList from "./components/GameList.jsx";
 import GameHighlight from "./components/GameHighlight.jsx";
 import ReviewList from "./components/ReviewList.jsx";
 import ReviewForm from "./components/ReviewForm.jsx";
+import CircleRating from "./components/CircleRating.jsx";
 
 const Main = styled.div`
   display: flex;
@@ -149,7 +150,8 @@ class App extends React.Component {
   }
 
   render() {
-    return <div>{this.display()}</div>;
+    // return <div>{this.display()}</div>;
+    return <CircleRating radius="50" stroke="4" value="4" />;
   }
 }
 
