@@ -7,7 +7,7 @@ import GameList from "./components/GameList.jsx";
 import GameHighlight from "./components/GameHighlight.jsx";
 import ReviewList from "./components/ReviewList.jsx";
 import ReviewForm from "./components/ReviewForm.jsx";
-import CircleRating from "./components/CircleRating.jsx";
+import HeaderBar from "./components/HeaderBar.jsx";
 
 const Main = styled.div`
   display: flex;
@@ -71,6 +71,7 @@ class App extends React.Component {
     this.updateHighlight = this.updateHighlight.bind(this);
     this.changeBottomDisplay = this.changeBottomDisplay.bind(this);
     this.updateReviewVotes = this.updateReviewVotes.bind(this);
+    this.displayTopReviewers = this.displayTopReviewers.bind(this);
   }
 
   componentDidMount() {
@@ -120,6 +121,7 @@ class App extends React.Component {
   display() {
     const { gameList, currentGame, bottomDisplay } = this.state;
 
+    //if the games are loaded from db, bottomList toggles whether to show form or reviews
     if (gameList && bottomDisplay) {
       return (
         <Main>
@@ -142,6 +144,7 @@ class App extends React.Component {
         </Main>
       );
     } else if (gameList && !bottomDisplay) {
+      //if bottomDisplay is false, show the Form View
       return (
         <Main>
           <MainTop id="mainTop">
@@ -170,8 +173,17 @@ class App extends React.Component {
     });
   }
 
+  displayTopReviewers(listOfUsers) {
+    console.log("List of Users");
+  }
+
   render() {
-    return <div>{this.display()}</div>;
+    return (
+      <div>
+        <HeaderBar getTopReviewers={this.displayTopReviewers} />
+        {this.display()}
+      </div>
+    );
   }
 }
 
