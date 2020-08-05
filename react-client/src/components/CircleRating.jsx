@@ -4,21 +4,24 @@ import styled from "styled-components";
 const ProgContainer = styled.div`
   height: 100%;
   width: 100%;
+  min-width: 20px;
+  min-height: 20px;
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
   position: relative;
 `;
 
 const Num = styled.div`
-  height: 100%;
-  width: 100%;
+  /* height: 100%;
+  width: 100%; */
   line-height: 100%;
   text-align: center;
   position: absolute;
   transform: rotate(90deg);
-  top: 0px;
-  left: 70px;
-  /* transform-origin: 50% 50%; */
+  font-size: 24px;
+  top: 38.5%;
+  left: 42.6%;
+  font-weight: bold;
 `;
 
 class CircleRating extends React.Component {
@@ -59,7 +62,7 @@ class CircleRating extends React.Component {
       this.circumference - (this.getProgress(value) / 100) * this.circumference;
 
     return (
-      <ProgContainer>
+      <ProgContainer id="circle-prog-box">
         <svg height={radius * 2} width={radius * 2}>
           <circle
             stroke={this.getStrokeColor(value)}
