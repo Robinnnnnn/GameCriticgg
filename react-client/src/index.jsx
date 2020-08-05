@@ -7,23 +7,22 @@ import GameList from "./components/GameList.jsx";
 import GameHighlight from "./components/GameHighlight.jsx";
 import ReviewList from "./components/ReviewList.jsx";
 import ReviewForm from "./components/ReviewForm.jsx";
+import CircleRating from "./components/CircleRating.jsx";
 
 const Main = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 100vw;
-  max-height: 98vh;
+  max-width: 76vw;
 `;
 
 const MainTop = styled.div`
-  border: 1px solid red;
   display: flex;
   justify-content: space-around;
   height: 50vh;
+  /* flex-wrap: wrap-reverse; */
 `;
 
 const MainBottom = styled.div`
-  border: 1px solid blue;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -31,10 +30,34 @@ const MainBottom = styled.div`
 `;
 
 const CreateReview = styled.div`
-  height: 25px;
-  width: 100px;
-  background-color: red;
-  line-height: 25px;
+  height: 40px;
+  width: 300px;
+  background: rgb(68, 244, 184);
+  background: radial-gradient(
+    circle,
+    rgba(68, 244, 184, 1) 0%,
+    rgba(60, 122, 194, 1) 100%
+  );
+  line-height: 40px;
+  text-align: center;
+  border-radius: 5px;
+  color: black;
+  font-weight: bold;
+  transition: all 0.2s ease-in-out;
+  align-self: center;
+
+  &:active {
+    background: rgb(60, 122, 194);
+    background: radial-gradient(
+      circle,
+      rgba(60, 122, 194, 1) 0%,
+      rgba(68, 244, 184, 1) 100%
+    );
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 class App extends React.Component {
@@ -113,8 +136,7 @@ class App extends React.Component {
               updateVotes={this.updateReviewVotes}
             />
             <CreateReview onClick={this.changeBottomDisplay}>
-              {" "}
-              Create Review{" "}
+              Create Review
             </CreateReview>
           </MainBottom>
         </Main>
