@@ -40,11 +40,17 @@ const NavButtons = styled.div`
 class HeaderBar extends React.Component {
   constructor(props) {
     super(props);
+
+    this.sendTopReviewers = this.sendTopReviewers.bind(this);
   }
 
-  handleClick() {
+  sendTopReviewers() {
     const { getTopReviewers } = this.props;
     //axios request
+    axios
+      .get("/reviewers")
+      .then((reviewerList) => getTopReviewers(reviewerList.data))
+      .catch(() => []);
   }
 
   render() {
@@ -53,7 +59,7 @@ class HeaderBar extends React.Component {
         <div>GameCriticgg</div>
         <SearchBar>Search Bar Temp</SearchBar>
         <NavButtonsContainer>
-          <NavButtons>Top Reviewers</NavButtons>
+          <NavButtons onClick={this.sendTopReviewers}>Top Reviewers</NavButtons>
           <NavButtons>Home</NavButtons>
         </NavButtonsContainer>
       </HeaderMain>
