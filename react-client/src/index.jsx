@@ -47,6 +47,7 @@ const CreateReview = styled.div`
   transition: all 0.2s ease-in-out;
   align-self: center;
   margin-top: 20px;
+  margin-bottom: 20px;
 
   &:active {
     background: rgb(60, 122, 194);

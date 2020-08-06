@@ -6,13 +6,21 @@ const TopReviewersContainer = styled.div`
   justify-content: space-between;
   width: 500px;
   min-width: 300px;
+  margin-top: 30px;
+`;
+
+const TRMain = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
 `;
 
 function TopReviewers(props) {
   const { listOfTopReviewers } = props;
   const newListOfReviewers = listOfTopReviewers.reverse();
   return (
-    <div>
+    <TRMain>
       <TopReviewersContainer>
         <div>Rank</div>
         <div>Critic</div>
@@ -29,7 +37,7 @@ function TopReviewers(props) {
           </TopReviewersContainer>
         );
       })}
-    </div>
+    </TRMain>
   );
 }
 
