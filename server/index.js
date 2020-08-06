@@ -4,6 +4,7 @@ const faker = require("faker");
 const axios = require("axios");
 const uniqid = require("uniqid");
 const points = require("./util/pointSystem.js");
+const sort = require("./util/sort.js");
 
 // import of db models
 const { Game, Review, User } = require("../database-mongo");
@@ -142,6 +143,28 @@ app.get("/userreviews/:author", async (req, res) => {
   const user = req.params.author;
   const userObj = await User.find({ author: user });
   res.send(userObj);
+});
+
+app.get("/reviewers", (req, res) => {
+  User.find({})
+    .then((reviewers) => {
+      //takes the large usere documents and creates a new object that is only the required information
+      let miniList = [];
+      reviewers.forEach((reviewer) => {
+        miniList.push({
+          author: reviewer.author,
+          intPoints: reviewer.intPoints,
+          numberOfReviews: reviewer.reviews.length,
+        });
+      });
+      return miniList;
+    })
+    .then((list) => {
+      return sort(list);
+    })
+    .then((listOfReviewers) => {
+      res.send(listOfReviewers);
+    });
 });
 
 app.listen(3000, function () {
