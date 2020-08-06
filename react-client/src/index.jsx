@@ -8,6 +8,7 @@ import GameHighlight from "./components/GameHighlight.jsx";
 import ReviewList from "./components/ReviewList.jsx";
 import ReviewForm from "./components/ReviewForm.jsx";
 import HeaderBar from "./components/HeaderBar.jsx";
+import TopReviewers from "./components/TopReviewers.jsx";
 
 const Main = styled.div`
   display: flex;
@@ -73,6 +74,7 @@ class App extends React.Component {
     this.changeBottomDisplay = this.changeBottomDisplay.bind(this);
     this.updateReviewVotes = this.updateReviewVotes.bind(this);
     this.displayTopReviewers = this.displayTopReviewers.bind(this);
+    this.checkTopReviewers = this.checkTopReviewers.bind(this);
   }
 
   componentDidMount() {
@@ -174,15 +176,23 @@ class App extends React.Component {
     });
   }
 
-  displayTopReviewers(listOfUsers) {
+  checkTopReviewers(listOfUsers) {
     this.setState({ topReviewers: listOfUsers });
+  }
+
+  displayTopReviewers() {
+    if (this.state.topReviewers) {
+      const { topReviewers } = this.state;
+      return <TopReviewers listOfTopReviewers={topReviewers} />;
+    }
   }
 
   render() {
     return (
       <div>
-        <HeaderBar getTopReviewers={this.displayTopReviewers} />
+        <HeaderBar getTopReviewers={this.checkTopReviewers} />
         {this.display()}
+        {this.displayTopReviewers()}
       </div>
     );
   }
