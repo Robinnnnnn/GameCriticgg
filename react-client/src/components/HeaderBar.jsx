@@ -31,12 +31,17 @@ const SearchBar = styled.div`
 
 const NavButtonsContainer = styled.div`
   display: flex;
+  font-family: "Ubuntu";
 `;
 
-const NavButtons = styled.div`
+const NavButtons = styled.a`
   padding: 3px;
 `;
 
+const TitleName = styled.div`
+  font-family: "Righteous";
+  font-size: 26px;
+`;
 class HeaderBar extends React.Component {
   constructor(props) {
     super(props);
@@ -56,7 +61,7 @@ class HeaderBar extends React.Component {
   render() {
     return (
       <HeaderMain>
-        <div>GameCriticgg</div>
+        <TitleName>GameCriticgg</TitleName>
         <SearchBar>Search Bar Temp</SearchBar>
         <NavButtonsContainer>
           <NavButtons onClick={this.sendTopReviewers}>Top Reviewers</NavButtons>

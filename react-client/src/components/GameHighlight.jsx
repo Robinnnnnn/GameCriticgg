@@ -8,6 +8,7 @@ const Container = styled.div`
   border: 1px solid black;
   width: 500px;
   min-width: 300px;
+  font-family: "Oxygen";
 `;
 
 const BigBoyImg = styled.div`
