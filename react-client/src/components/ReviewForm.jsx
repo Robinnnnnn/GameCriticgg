@@ -20,6 +20,7 @@ const FormMain = styled.form`
   display: flex;
   flex-direction: column;
   margin-top: 35px;
+  margin-bottom: 35px;
 `;
 
 const UsernameInput = styled.input`
@@ -36,10 +37,19 @@ const RadioChoice = styled.div`
   justify-content: space-around;
 `;
 
-const SubmitButton = styled.button`
+const SubmitButton = styled.div`
   max-width: 250px;
+  min-width: 200px;
   height: 30px;
-  background-color: teal;
+  border-radius: 3px;
+  background-color: #0396a6;
+  color: #141726;
+  text-align: center;
+  line-height: 30px;
+
+  &:active {
+    background-color: #03658c;
+  }
 `;
 
 class Review extends React.Component {

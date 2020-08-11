@@ -9,6 +9,7 @@ import ReviewList from "./components/ReviewList.jsx";
 import ReviewForm from "./components/ReviewForm.jsx";
 import HeaderBar from "./components/HeaderBar.jsx";
 import TopReviewers from "./components/TopReviewers.jsx";
+import Footer from "./components/Footer.jsx";
 
 const Main = styled.div`
   display: flex;
@@ -27,8 +28,10 @@ const MainBottom = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 50vh;
   align-items: center;
+  border-top: 2px solid #74024a;
+  margin-top: 5px;
+  padding-top: 5px;
 `;
 
 const CreateReview = styled.div`
@@ -197,6 +200,7 @@ class App extends React.Component {
         <HeaderBar getTopReviewers={this.checkTopReviewers} />
         {this.display()}
         {this.displayTopReviewers()}
+        <Footer />
       </div>
     );
   }

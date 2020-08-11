@@ -5,7 +5,6 @@ import uniqid from "uniqid";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
   width: 500px;
   min-width: 300px;
   font-family: "Oxygen";
@@ -16,12 +15,14 @@ const BigBoyImg = styled.div`
   background-image: url(${(props) => props.bgImage});
   background-position: center;
   background-size: cover;
+
   height: 600px;
 `;
 const HighlightInfo = styled.div`
   width: 100%;
   height: 400px;
   text-align: center;
+  border: 3px solid #03658c;
 `;
 
 const FlexOne = styled.div`
@@ -45,10 +46,10 @@ function GameHighlight(props) {
     <Container id="gameHighlight">
       <BigBoyImg id="big-image" bgImage={oneGame.image}></BigBoyImg>
       <HighlightInfo id="big-image">
-        <h1>{oneGame.title}</h1>
+        <h4>{oneGame.title}</h4>
         <FlexOne>
           <div>
-            <h3>Available On:</h3>
+            <h6>Available On:</h6>
             <ul>
               {oneGame.platforms.map((platform) => {
                 return <li key={uniqid()}> {platform} </li>;
@@ -56,10 +57,10 @@ function GameHighlight(props) {
             </ul>
           </div>
           <div>
-            <h3>GCrit Score: {gcScore}</h3>
+            <h6>GCrit Score: {gcScore || 0}</h6>
           </div>
           <div>
-            <h3>Tags:</h3>
+            <h6>Tags:</h6>
             <ul>
               {oneGame.genres.map((genre) => {
                 return <li key={uniqid()}> {genre} </li>;
