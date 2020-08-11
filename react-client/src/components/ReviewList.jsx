@@ -7,9 +7,9 @@ const ReviewListContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 15px;
-  margin-left: 15px;
+  /* margin-left: 15px; */
   overflow: scroll;
-  max-height: 400px;
+  max-height: 425px;
   min-width: 800px;
 `;
 

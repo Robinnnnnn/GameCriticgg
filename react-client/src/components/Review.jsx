@@ -32,9 +32,9 @@ const TextContainer = styled.div`
 
 const ReviewMain = styled.div`
   display: flex;
-  width: 75%;
+  width: 90%;
   justify-content: flex-end;
-  align-content: center !important;
+  align-items: center !important;
   margin-bottom: 8px;
 `;
 
@@ -45,6 +45,7 @@ const VoteContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   line-height: 100%;
+  margin-right: 5px;
 `;
 
 const H4 = styled.h4`
@@ -55,6 +56,21 @@ const ArrowContainer = styled.div`
   width: auto;
   display: flex;
   align-items: center;
+  margin-right: 7px;
+`;
+
+const UpArrowCounter = styled.p`
+  color: ${(props) => (props.color ? "green" : "white")};
+`;
+
+const DownArrowCounter = styled.p`
+  color: ${(props) => (props.color ? "red" : "white")};
+`;
+
+const Arrows = styled.div`
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
 
 class Review extends React.Component {
@@ -67,9 +83,11 @@ class Review extends React.Component {
     };
 
     this.handleVote = this.handleVote.bind(this);
+    this.changeColorUp = this.changeColorUp.bind(this);
+    this.changeColorDown = this.changeColorDown.bind(this);
   }
 
-  handleVote(voteType) {
+  handleVote(event, voteType) {
     //increment the upvote counter on the review
     //axios request to update the record
     //toggle the state to votePressed
@@ -81,22 +99,47 @@ class Review extends React.Component {
     // if they refresh the page, they will be able to vote again
     // keep a log of all the reviews the user voted on and crosscheck to see if they already voted on this review
     if (this.state.votePressed) {
+      window.alert("You already voted. n3wb.");
       return;
-    } else {
-      axios({
-        method: "put",
-        url: `/${voteType}/${reviewId}/${gameId}/${author}`,
-      })
-        .then(() => {
-          this.setState({
-            votePressed: !this.state.votePressed,
-          });
-        })
-        .then(() => {
-          // used to update state of app so that new upvote number is displayed automatically
-          this.props.updateVotes(this.props.gameid);
-        });
     }
+
+    if (voteType === "upvote") {
+      this.changeColorUp(event);
+    } else {
+      this.changeColorDown(event);
+    }
+
+    axios({
+      method: "put",
+      url: `/${voteType}/${reviewId}/${gameId}/${author}`,
+    })
+      .then(() => {
+        this.setState({
+          votePressed: !this.state.votePressed,
+        });
+      })
+      .then(() => {
+        // used to update state of app so that new upvote number is displayed automatically
+        this.props.updateVotes(this.props.gameid);
+      });
+  }
+
+  changeColorUp(event) {
+    console.log(event.target.classList);
+    // event.target.classList.add("green");
+
+    //counter
+    let sibling = event.target.nextElementSibling;
+    sibling.setAttribute("style", "color: green;");
+  }
+
+  changeColorDown(event) {
+    console.log(event.target.classList);
+    // event.target.classList.add("green");
+
+    //counter
+    let sibling = event.target.nextElementSibling;
+    sibling.setAttribute("style", "color: red;");
   }
 
   render() {
@@ -125,23 +168,23 @@ class Review extends React.Component {
           <CircleRating>{oneReview.user_sound}</CircleRating> */}
         </CircleContainer>
         <VoteContainer>
-          <ArrowContainer id="upvote-container">
-            <div
+          <ArrowContainer className="upvote-container">
+            <Arrows
               className="material-icons"
-              onClick={() => this.handleVote("upvote")}
+              onClick={(event) => this.handleVote(event, "upvote")}
             >
               arrow_upward
-            </div>
-            <p id="upvoteCounter">{upvotes}</p>
+            </Arrows>
+            <UpArrowCounter>{upvotes}</UpArrowCounter>
           </ArrowContainer>
-          <ArrowContainer id="downvote-container">
-            <div
+          <ArrowContainer className="downvote-container">
+            <Arrows
               className="material-icons"
-              onClick={() => this.handleVote("downvote")}
+              onClick={(event) => this.handleVote(event, "downvote")}
             >
               arrow_downward
-            </div>
-            <p id="downvoteCounter">{downvotes}</p>
+            </Arrows>
+            <DownArrowCounter>{downvotes}</DownArrowCounter>
           </ArrowContainer>
         </VoteContainer>
       </ReviewMain>
