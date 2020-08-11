@@ -9,7 +9,7 @@ const ReviewListContainer = styled.div`
   margin-top: 15px;
   margin-left: 15px;
   overflow: scroll;
-  height: 88%;
+  max-height: 400px;
   min-width: 800px;
 `;
 

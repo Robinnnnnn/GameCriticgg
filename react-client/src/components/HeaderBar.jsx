@@ -8,12 +8,7 @@ const HeaderMain = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgb(68, 244, 184);
-  background: radial-gradient(
-    circle,
-    rgba(68, 244, 184, 1) 0%,
-    rgba(60, 122, 194, 1) 100%
-  );
+  background-color: #0396a6;
   color: black;
   padding: 20px;
   border-radius: 0 0 10px 10px;
@@ -36,6 +31,12 @@ const NavButtonsContainer = styled.div`
 
 const NavButtons = styled.a`
   padding: 3px;
+  color: #141726;
+
+  &:hover {
+    color: #c0047d;
+    text-decoration: underline;
+  }
 `;
 
 const TitleName = styled.div`
