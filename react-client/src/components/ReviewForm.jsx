@@ -6,7 +6,40 @@ import uniqid from "uniqid";
 const Holder = styled.div`
   display: flex;
   justify-content: space-around;
-  width: 60%;
+  flex-direction: column;
+`;
+
+const TextArea = styled.textarea`
+  height: 230px;
+  width: 600px;
+  margin-top: 15px;
+  color: whitesmoke;
+`;
+
+const FormMain = styled.form`
+  display: flex;
+  flex-direction: column;
+  margin-top: 35px;
+`;
+
+const UsernameInput = styled.input`
+  width: 230px;
+  height: 20px;
+  line-height: 20px;
+  background-color: transparent;
+  color: white;
+  border-radius: 4px;
+`;
+
+const RadioChoice = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
+const SubmitButton = styled.button`
+  max-width: 250px;
+  height: 30px;
+  background-color: teal;
 `;
 
 class Review extends React.Component {
@@ -15,7 +48,7 @@ class Review extends React.Component {
 
     this.state = {
       username: "",
-      text: "Write Review Here",
+      text: "",
       art: null,
       sound: null,
       gameplay: null,
@@ -97,160 +130,216 @@ class Review extends React.Component {
 
   render() {
     return (
-      <form>
-        <label>
-          Username:
-          <input
-            type="text"
-            value={this.state.username}
-            onChange={this.handleUNChange}
-          />
-        </label>{" "}
+      <FormMain action="#">
+        <UsernameInput
+          type="text"
+          value={this.state.username}
+          onChange={this.handleUNChange}
+          placeholder="Username"
+        />
         <br></br>
-        <Holder>
-          <label>
-            Gameplay Score : <br></br>
-            <input
-              type="radio"
-              value="1"
-              id="g1"
-              name="gameplay"
-              onChange={this.handleGameplayChange}
-            />
-            <label htmlFor="g1">1</label> <br></br>
-            <input
-              type="radio"
-              value="2"
-              id="g1"
-              name="gameplay"
-              onChange={this.handleGameplayChange}
-            />
-            <label htmlFor="g1">2</label> <br></br>
-            <input
-              type="radio"
-              value="3"
-              id="g1"
-              name="gameplay"
-              onChange={this.handleGameplayChange}
-            />
-            <label htmlFor="g1">3</label> <br></br>
-            <input
-              type="radio"
-              value="4"
-              id="g1"
-              name="gameplay"
-              onChange={this.handleGameplayChange}
-            />
-            <label htmlFor="g1">4</label> <br></br>
-            <input
-              type="radio"
-              value="5"
-              id="g1"
-              name="gameplay"
-              onChange={this.handleGameplayChange}
-            />
-            <label htmlFor="g1">5</label> <br></br>
-          </label>{" "}
-          <br></br>
-          <label>
-            Game Art Score :<br></br>
-            <input
-              type="radio"
-              value="1"
-              id="a1"
-              name="art"
-              onChange={this.handleArtChange}
-            />
-            <label htmlFor="a1">1</label> <br></br>
-            <input
-              type="radio"
-              value="2"
-              id="a1"
-              name="art"
-              onChange={this.handleArtChange}
-            />
-            <label htmlFor="a1">2</label> <br></br>
-            <input
-              type="radio"
-              value="3"
-              id="a1"
-              name="art"
-              onChange={this.handleArtChange}
-            />
-            <label htmlFor="a1">3</label> <br></br>
-            <input
-              type="radio"
-              value="4"
-              id="a1"
-              name="art"
-              onChange={this.handleArtChange}
-            />
-            <label htmlFor="a1">4</label> <br></br>
-            <input
-              type="radio"
-              value="5"
-              id="a1"
-              name="art"
-              onChange={this.handleArtChange}
-            />
-            <label htmlFor="a1">5</label> <br></br>
-          </label>{" "}
-          <br></br>
-          <label>
-            Game Sound Score :<br></br>
-            <input
-              type="radio"
-              value="1"
-              id="s1"
-              name="sound"
-              onChange={this.handleSoundChange}
-            />
-            <label htmlFor="s1">1</label> <br></br>
-            <input
-              type="radio"
-              value="2"
-              id="s1"
-              name="sound"
-              onChange={this.handleSoundChange}
-            />
-            <label htmlFor="s1">2</label> <br></br>
-            <input
-              type="radio"
-              value="3"
-              id="s1"
-              name="sound"
-              onChange={this.handleSoundChange}
-            />
-            <label htmlFor="s1">3</label> <br></br>
-            <input
-              type="radio"
-              value="4"
-              id="s1"
-              name="sound"
-              onChange={this.handleSoundChange}
-            />
-            <label htmlFor="s1">4</label> <br></br>
-            <input
-              type="radio"
-              value="5"
-              id="s1"
-              name="sound"
-              onChange={this.handleSoundChange}
-            />
-            <label htmlFor="s1">5</label> <br></br>
-          </label>{" "}
-          <br></br>
-        </Holder>
-        <label>
-          Add a comment:<br></br>
-          <input
+        <h6>Game Mechanics</h6>
+        <RadioChoice>
+          <p>
+            <label>
+              <input
+                type="radio"
+                value="1"
+                id="g1"
+                name="gameplay"
+                onChange={this.handleGameplayChange}
+              />
+              <span>1</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input
+                type="radio"
+                value="2"
+                id="g2"
+                name="gameplay"
+                onChange={this.handleGameplayChange}
+              />
+              <span>2</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input
+                type="radio"
+                value="3"
+                id="g3"
+                name="gameplay"
+                onChange={this.handleGameplayChange}
+              />
+              <span>3</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input
+                type="radio"
+                value="4"
+                id="g4"
+                name="gameplay"
+                onChange={this.handleGameplayChange}
+              />
+              <span>4</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input
+                type="radio"
+                value="5"
+                id="g5"
+                name="gameplay"
+                // className="with-gap"
+                onChange={this.handleGameplayChange}
+              />
+              <span>5</span>
+            </label>
+          </p>
+        </RadioChoice>
+        <h6>Game Art</h6>
+        <RadioChoice>
+          <p>
+            <label>
+              <input
+                type="radio"
+                value="1"
+                id="a1"
+                name="art"
+                onChange={this.handleArtChange}
+              />
+              <span>1</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input
+                type="radio"
+                value="2"
+                id="a2"
+                name="art"
+                onChange={this.handleArtChange}
+              />
+              <span>2</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input
+                type="radio"
+                value="3"
+                id="a3"
+                name="art"
+                onChange={this.handleArtChange}
+              />
+              <span>3</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input
+                type="radio"
+                value="4"
+                id="a4"
+                name="art"
+                onChange={this.handleArtChange}
+              />
+              <span>4</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input
+                type="radio"
+                value="5"
+                id="a5"
+                name="art"
+                onChange={this.handleArtChange}
+              />
+              <span>5</span>
+            </label>
+          </p>
+        </RadioChoice>
+        <h6>Game Sound</h6>
+        <RadioChoice>
+          <p>
+            <label>
+              <input
+                type="radio"
+                value="1"
+                id="s1"
+                name="sound"
+                onChange={this.handleSoundChange}
+              />
+              <span>1</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input
+                type="radio"
+                value="2"
+                id="s2"
+                name="sound"
+                onChange={this.handleSoundChange}
+              />
+              <span>2</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input
+                type="radio"
+                value="3"
+                id="s3"
+                name="sound"
+                onChange={this.handleSoundChange}
+              />
+              <span>3</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input
+                type="radio"
+                value="4"
+                id="s4"
+                name="sound"
+                onChange={this.handleSoundChange}
+              />
+              <span>4</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input
+                type="radio"
+                value="5"
+                id="s5"
+                name="sound"
+                onChange={this.handleSoundChange}
+              />
+              <span>5</span>
+            </label>
+          </p>
+        </RadioChoice>
+        <div className="input-field">
+          <TextArea
             type="text"
             value={this.state.text}
             onChange={this.handleTextChange}
+            placeholder="Begin writing review here..."
+            id="textArea"
           />
-        </label>
-        <button onClick={this.handleSubmit}> Submit Review </button>
-      </form>
+        </div>
+
+        <SubmitButton onClick={this.handleSubmit}> Submit Review </SubmitButton>
+      </FormMain>
     );
   }
 }

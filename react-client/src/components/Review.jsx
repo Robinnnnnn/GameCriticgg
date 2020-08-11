@@ -16,7 +16,7 @@ const CircleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-width: 40%;
+  min-width: 400px;
   margin-right: 10px;
 `;
 
@@ -26,7 +26,8 @@ const TextContainer = styled.div`
   align-items: flex-start;
   justify-content: center;
   margin-right: auto;
-  max-width: 400px;
+  max-width: 800px;
+  overflow: scroll;
 `;
 
 const ReviewMain = styled.div`
