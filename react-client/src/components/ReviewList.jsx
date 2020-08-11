@@ -10,6 +10,7 @@ const ReviewListContainer = styled.div`
   margin-left: 15px;
   overflow: scroll;
   height: 88%;
+  min-width: 800px;
 `;
 
 class ReviewList extends React.Component {

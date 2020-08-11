@@ -28,6 +28,7 @@ const MainBottom = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 50vh;
+  align-items: center;
 `;
 
 const CreateReview = styled.div`
@@ -158,10 +159,12 @@ class App extends React.Component {
             />
             <GameHighlight oneGame={currentGame} />
           </MainTop>
-          <ReviewForm
-            changeDisplay={this.changeBottomDisplay}
-            oneGame={currentGame}
-          />
+          <MainBottom>
+            <ReviewForm
+              changeDisplay={this.changeBottomDisplay}
+              oneGame={currentGame}
+            />
+          </MainBottom>
         </Main>
       );
     } else {
