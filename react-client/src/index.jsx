@@ -29,7 +29,7 @@ const MainBottom = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border-top: 2px solid #74024a;
+  border-top: 2px solid #0396A6;
   margin-top: 5px;
   padding-top: 5px;
 `;

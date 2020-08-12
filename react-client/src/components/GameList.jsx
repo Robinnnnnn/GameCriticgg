@@ -10,17 +10,21 @@ const GameTile = styled.div`
   background-size: cover;
   margin-bottom: 10px;
   text-align: center;
-  color: #c0047d;
+  color: whitesmoke;
   overflow: wrap;
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
 `;
 
 const TitleText = styled.div`
   height: 100%;
   width: 100%;
-  line-height: 100%;
-  padding: 10%;
   visibility: hidden;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
   ${GameTile}:hover & {
     font-weight: 700;
     font-size: 24px;
@@ -28,7 +32,7 @@ const TitleText = styled.div`
   }
 
   &:hover {
-    backdrop-filter: blur(10px) brightness(140%);
+    backdrop-filter: blur(7px) brightness(40%);
     overflow: hidden;
   }
 `;
@@ -40,6 +44,7 @@ const GameListContainer = styled.div`
   height: auto;
   justify-content: space-around;
   overflow: scroll;
+  margin-right: 8px;
 `;
 
 class GameList extends React.Component {
@@ -61,7 +66,9 @@ class GameList extends React.Component {
           className="gameTile"
           onClick={() => this.handleClick(game)}
         >
-          <TitleText>{game.title}</TitleText>
+          <TitleText>
+            <p>{game.title}</p>
+          </TitleText>
         </GameTile>
       );
     });
