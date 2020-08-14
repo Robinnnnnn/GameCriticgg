@@ -19,8 +19,6 @@ const Num = styled.div`
   position: absolute;
   transform: rotate(90deg);
   font-size: 24px;
-  top: 38.5%;
-  left: 42.6%;
   font-weight: bold;
 `;
 

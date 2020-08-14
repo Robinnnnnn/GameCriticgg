@@ -27,16 +27,9 @@ const TextContainer = styled.div`
   justify-content: center;
   margin-right: auto;
   max-width: 800px;
-  overflow: scroll;
 `;
 
-const ReviewMain = styled.div`
-  display: flex;
-  width: 90%;
-  justify-content: flex-end;
-  align-items: center !important;
-  margin-bottom: 8px;
-`;
+const ReviewMain = styled.li``;
 
 const VoteContainer = styled.div`
   width: 10%;
@@ -147,46 +140,53 @@ class Review extends React.Component {
     const { upvotes, downvotes } = this.props.oneReview;
 
     return (
-      // flex - column - alignright
       <ReviewMain className="game-review">
-        <TextContainer>
-          <H4>{oneReview.author}</H4>
-          <div>{oneReview.review}</div>
-        </TextContainer>
-        <CircleContainer>
-          <CircleRating radius="50" stroke="6" value={oneReview.user_overall} />
-          <CircleRating
-            radius="50"
-            stroke="6"
-            value={oneReview.user_gameplay}
-          />
-          <CircleRating radius="50" stroke="6" value={oneReview.user_art} />
-          <CircleRating radius="50" stroke="6" value={oneReview.user_sound} />
-          {/* <CircleRating>{oneReview.user_overall}</CircleRating>
-          <CircleRating>{oneReview.user_gameplay}</CircleRating>
-          <CircleRating>{oneReview.user_art}</CircleRating>
-          <CircleRating>{oneReview.user_sound}</CircleRating> */}
-        </CircleContainer>
-        <VoteContainer>
-          <ArrowContainer className="upvote-container">
-            <Arrows
-              className="material-icons"
-              onClick={(event) => this.handleVote(event, "upvote")}
-            >
-              arrow_upward
-            </Arrows>
-            <UpArrowCounter>{upvotes}</UpArrowCounter>
-          </ArrowContainer>
-          <ArrowContainer className="downvote-container">
-            <Arrows
-              className="material-icons"
-              onClick={(event) => this.handleVote(event, "downvote")}
-            >
-              arrow_downward
-            </Arrows>
-            <DownArrowCounter>{downvotes}</DownArrowCounter>
-          </ArrowContainer>
-        </VoteContainer>
+        <div className=" individual-review collapsible-header">
+          <TextContainer>
+            <H4>{oneReview.author}</H4>
+          </TextContainer>
+          <CircleContainer>
+            <CircleRating
+              radius="50"
+              stroke="6"
+              value={oneReview.user_overall}
+            />
+            <CircleRating
+              radius="50"
+              stroke="6"
+              value={oneReview.user_gameplay}
+            />
+            <CircleRating radius="50" stroke="6" value={oneReview.user_art} />
+            <CircleRating radius="50" stroke="6" value={oneReview.user_sound} />
+            {/* <CircleRating>{oneReview.user_overall}</CircleRating>
+            <CircleRating>{oneReview.user_gameplay}</CircleRating>
+            <CircleRating>{oneReview.user_art}</CircleRating>
+            <CircleRating>{oneReview.user_sound}</CircleRating> */}
+          </CircleContainer>
+          <VoteContainer>
+            <ArrowContainer className="upvote-container">
+              <Arrows
+                className="material-icons"
+                onClick={(event) => this.handleVote(event, "upvote")}
+              >
+                arrow_upward
+              </Arrows>
+              <UpArrowCounter>{upvotes}</UpArrowCounter>
+            </ArrowContainer>
+            <ArrowContainer className="downvote-container">
+              <Arrows
+                className="material-icons"
+                onClick={(event) => this.handleVote(event, "downvote")}
+              >
+                arrow_downward
+              </Arrows>
+              <DownArrowCounter>{downvotes}</DownArrowCounter>
+            </ArrowContainer>
+          </VoteContainer>
+        </div>
+        <div className="collapsible-body">
+          <span>{oneReview.review}</span>
+        </div>
       </ReviewMain>
     );
   }

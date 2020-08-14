@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import $ from "jquery";
 import axios from "axios";
 import styled from "styled-components";
 import GameList from "./components/GameList.jsx";
@@ -29,7 +28,7 @@ const MainBottom = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border-top: 2px solid #0396A6;
+  border-top: 2px solid #0396a6;
   margin-top: 5px;
   padding-top: 5px;
 `;
