@@ -37,7 +37,7 @@ const CodedBy = styled.h6`
 
 function Footer() {
   return (
-    <FooterContainer>
+    <FooterContainer id="footer-bar">
       <h6> &lt;/&gt; by Iluvatar </h6>
       <FooterButtonContainer>
         <FooterButtons href="#"> Home </FooterButtons>

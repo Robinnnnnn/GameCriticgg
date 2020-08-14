@@ -23,6 +23,7 @@ const HighlightInfo = styled.div`
   height: 400px;
   text-align: center;
   border: 3px solid #03658c;
+  padding-bottom: 9px;
 `;
 
 const FlexOne = styled.div`

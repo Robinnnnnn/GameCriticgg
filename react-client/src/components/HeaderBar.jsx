@@ -15,15 +15,6 @@ const HeaderMain = styled.div`
   margin-bottom: 8px;
 `;
 
-const SearchBar = styled.div`
-  width: 400px;
-  background-color: white;
-  height: 20px;
-  text-align: center;
-  line-height: 20px;
-  border: 2px solid darkblue;
-`;
-
 const NavButtonsContainer = styled.div`
   display: flex;
   font-family: "Ubuntu";
@@ -63,9 +54,10 @@ class HeaderBar extends React.Component {
     return (
       <HeaderMain>
         <TitleName>GameCriticgg</TitleName>
-        <SearchBar>Search Bar Temp</SearchBar>
         <NavButtonsContainer>
-          <NavButtons onClick={this.sendTopReviewers}>Top Reviewers</NavButtons>
+          <NavButtons onClick={this.sendTopReviewers} href="#footer-bar">
+            Top Reviewers
+          </NavButtons>
           <NavButtons>Home</NavButtons>
         </NavButtonsContainer>
       </HeaderMain>
