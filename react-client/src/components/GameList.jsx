@@ -34,6 +34,7 @@ const TitleText = styled.div`
   &:hover {
     backdrop-filter: blur(7px) brightness(40%);
     overflow: hidden;
+    border: 3px solid #74024a;
   }
 `;
 

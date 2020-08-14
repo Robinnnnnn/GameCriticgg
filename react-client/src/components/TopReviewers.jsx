@@ -3,13 +3,7 @@ import styled from "styled-components";
 
 const TopReviewersContainerRow = styled.tr``;
 
-const TopReviewersContainerHead = styled.thead`
-  /* display: flex;
-  justify-content: space-between;
-  min-width: 300px;
-  margin-top: 30px; */
-  /* width: 500px; */
-`;
+const TopReviewersContainerHead = styled.thead``;
 
 const TRMain = styled.table`
   display: flex;
@@ -59,7 +53,7 @@ function TopReviewers(props) {
             <TopReviewersContainerRow key={index}>
               <TableBodyData>{`${index + 1}. `}</TableBodyData>
               <TableBodyData>{user.author}</TableBodyData>
-              <TableBodyData>{user.intPoints}</TableBodyData>
+              <TableBodyData>{Math.ceil(user.intPoints)}</TableBodyData>
               <TableBodyData>{user.numberOfReviews}</TableBodyData>
             </TopReviewersContainerRow>
           );
