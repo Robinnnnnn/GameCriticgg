@@ -52,6 +52,26 @@ const SubmitButton = styled.div`
   }
 `;
 
+const CancelButton = styled.div`
+  max-width: 250px;
+  min-width: 200px;
+  height: 30px;
+  border-radius: 3px;
+  background-color: #c0047d;
+  color: #141726;
+  text-align: center;
+  line-height: 30px;
+
+  &:active {
+    background-color: #74024a;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
 class Review extends React.Component {
   constructor(props) {
     super(props);
@@ -71,6 +91,7 @@ class Review extends React.Component {
     this.handleTextChange = this.handleTextChange.bind(this);
     this.getOverall = this.getOverall.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.cancelReview = this.cancelReview.bind(this);
   }
 
   handleUNChange(event) {
@@ -136,6 +157,11 @@ class Review extends React.Component {
       .then((response) => {
         changeDisplay();
       });
+  }
+
+  cancelReview() {
+    const { changeDisplay } = this.props;
+    changeDisplay();
   }
 
   render() {
@@ -347,8 +373,16 @@ class Review extends React.Component {
             id="textArea"
           />
         </div>
-
-        <SubmitButton onClick={this.handleSubmit}> Submit Review </SubmitButton>
+        <ButtonContainer>
+          <SubmitButton onClick={this.handleSubmit}>
+            {" "}
+            Submit Review{" "}
+          </SubmitButton>
+          <CancelButton onClick={this.cancelReview}>
+            {" "}
+            Cancel Review{" "}
+          </CancelButton>
+        </ButtonContainer>
       </FormMain>
     );
   }
