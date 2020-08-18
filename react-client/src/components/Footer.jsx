@@ -14,7 +14,7 @@ const FooterContainer = styled.footer`
   border-radius: 10px 10px 0 0;
 `;
 
-const FooterButtons = styled.div`
+const FooterButtons = styled.a`
   /* color: #141726; */\
   padding: 0 11px 0 0;
 
@@ -40,9 +40,14 @@ function Footer() {
     <FooterContainer id="footer-bar">
       <h6> &lt;/&gt; by Iluvatar </h6>
       <FooterButtonContainer>
-        <FooterButtons href="#"> Home </FooterButtons>
-        <FooterButtons href="#"> Top Reviewers </FooterButtons>
-        <FooterButtons href="#"> Github </FooterButtons>
+        <FooterButtons href="#home"> Home </FooterButtons>
+        <FooterButtons
+          href="https://github.com/Robinnnnnn/GameCriticgg"
+          target="_blank"
+        >
+          {" "}
+          Github{" "}
+        </FooterButtons>
       </FooterButtonContainer>
     </FooterContainer>
   );

@@ -52,13 +52,13 @@ class HeaderBar extends React.Component {
 
   render() {
     return (
-      <HeaderMain>
+      <HeaderMain id="home">
         <TitleName>GameCriticgg</TitleName>
         <NavButtonsContainer>
           <NavButtons onClick={this.sendTopReviewers} href="#footer-bar">
             Top Reviewers
           </NavButtons>
-          <NavButtons>Home</NavButtons>
+          <NavButtons href="#home">Home</NavButtons>
         </NavButtonsContainer>
       </HeaderMain>
     );
