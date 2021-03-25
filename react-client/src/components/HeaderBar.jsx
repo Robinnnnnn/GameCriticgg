@@ -52,7 +52,7 @@ class HeaderBar extends React.Component {
 
   render() {
     return (
-      <HeaderMain id="home">
+      <HeaderMain id="home" className="header-bar">
         <TitleName>GameCriticgg</TitleName>
         <NavButtonsContainer>
           <NavButtons onClick={this.sendTopReviewers} href="#footer-bar">
